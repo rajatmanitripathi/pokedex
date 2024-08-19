@@ -1,16 +1,3 @@
-html,
-body {
-  background: #ffdf6d;
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
-}
-
 .ball {
   width: 200px;
   height: 200px;
@@ -85,5 +72,5 @@ body {
     z-index: 999;
     top: 0px;
     left: 0px;
-    backdrop-filter: blur(50px);
+    background: #ffffffd9;
 }

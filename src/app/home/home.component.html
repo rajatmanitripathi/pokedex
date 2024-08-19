@@ -1,10 +1,10 @@
 <div class="homeContainer">
   <div class="leftV">
-    <app-pokemon-details *ngIf="this.originalList && this.originalList.length > 0"></app-pokemon-details>
+    <app-pokemon-details></app-pokemon-details>
   </div>
   <div class="rightV">
     <div class="searchFilterBar">
-      <div class="filterContainer" *ngIf="this.originalList && this.originalList.length > 0">
+      <div class="filterContainer">
         <mat-form-field class="pokemonSearch"
           appearance="outline"
           floatLabel="always"
@@ -29,8 +29,9 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
+      </div>
+      <div class="filterBtn">
         <mat-icon
-          *ngIf="this.originalList && this.originalList.length > 0"
           (click)="toggleFilter()"
           >filter_list</mat-icon
         >
@@ -43,7 +44,6 @@
       <mat-select
         #pokemonFilter
         class="hiddenFilter"
-        *ngIf="this.originalList && this.originalList.length > 0"
         (selectionChange)="onFilterChange($event)"
         placeholder="Pokemon Type"
         multiple
