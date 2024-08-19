@@ -30,9 +30,8 @@
           </mat-autocomplete>
         </mat-form-field>
       </div>
-      <div class="filterBtn">
+      <div class="filterBtn" (click)="toggleFilter()">
         <mat-icon
-          (click)="toggleFilter()"
           >filter_list</mat-icon
         >
         <span

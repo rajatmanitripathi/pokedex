@@ -124,7 +124,10 @@ body {
 }
 
 .mat-mdc-option.mdc-list-item--selected{
-  background-color: #dae2f90d !important;
+  background-color: rgba(26, 27, 31, 0.12) !important;
+  .mdc-list-item__primary-text{
+    color: var(--app-accent-color) !important;
+  }
 }
 
 .mat-mdc-option {
@@ -186,7 +189,6 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   background-color: #101215;
-  border-radius: 10px;
 }
 
 /* Handle */
@@ -228,4 +230,10 @@ body {
 
 .mat-icon {
   color: var(--app-accent3-color);
+}
+
+.mat-mdc-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

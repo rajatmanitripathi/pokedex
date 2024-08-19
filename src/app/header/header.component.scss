@@ -1,21 +1,31 @@
 .headerContainer {
     border-radius: 14px;
-    margin-bottom: 20px;
+    margin: 0px 0px 70px 0px;
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.headerText{
+    font-size: 20px;
+    background: -webkit-linear-gradient(var(--app-accent-color), var(--app-accent-color-darker));
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    cursor: pointer;
 }
 
 .headerLogoContainer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 14px;
+    cursor: pointer;
 }
 
 .headerLogo {
-    width: 130px;
-    height: 46px;
+    width: 100px;
+    height: 100px;
     object-fit: cover;
 }
 
@@ -61,4 +71,40 @@
 .landingText{
     color: white;
     width: 60%;
+}
+
+.headerMenuContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.headerMenuItem{
+    margin: 0px 20px;
+    background: -webkit-linear-gradient(var(--app-accent-color), var(--app-accent-color-darker));
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-size: 19px;
+    padding: 10px 0px;
+}
+
+.headerMenuItem.activeHeaderMenu{
+    border-bottom: 2px solid var(--app-accent3-color);
+}
+
+.headerBtn{
+    border: 2px solid var(--app-accent3-color);
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(50px);
+    background: -webkit-linear-gradient(var(--app-accent-color), var(--app-accent-color-darker));
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-size: 19px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-right: 20px;
 }
