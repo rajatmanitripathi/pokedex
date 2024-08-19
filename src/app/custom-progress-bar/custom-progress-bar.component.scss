@@ -4,6 +4,9 @@
   border-radius: 3px;
   overflow: hidden;
   height: 7px;
+  display: flex;
+  justify-content: start;
+  align-items: start;
 }
 
 .progress-bar {
@@ -13,3 +16,56 @@
   border-radius: 8px 0 0 8px;
   /* Rounding the edges of the progress bar */
 }
+
+.star-rating-container {
+  display: flex;
+}
+
+
+.neon-star {
+  width: 10px;
+  height: 10px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.neon-star::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: gold;
+  clip-path: polygon(
+    50% 0%, 
+    61% 35%, 
+    98% 35%, 
+    68% 57%, 
+    79% 91%, 
+    50% 70%, 
+    21% 91%, 
+    32% 57%, 
+    2% 35%, 
+    39% 35%
+  );
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Star above the glow */
+}
+
+.neon-star::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle, rgba(255, 223, 0, 0.8) 0%, rgba(255, 223, 0, 0) 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(2px); /* Blur effect for a neon look */
+  z-index: 1; /* Glow behind the star */
+}
+
