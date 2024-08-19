@@ -1,0 +1,378 @@
+<div
+  class="poke-cardContainer"
+  [ngClass]="'pokeMon_' + pokemonData.pokemonData?.id + ((pokemonData.pokemonData?.specieData?.is_legendary || pokemonData.pokemonData?.specieData?.is_mythical)?' blendHard':'')"
+  [style.backgroundImage]="
+    pokemonData &&
+    pokemonData.pokemonData &&
+    pokemonData.pokemonData.types &&
+    pokemonData.pokemonData.types.length &&
+    pokemonData.pokemonData.types.length > 0 &&
+    pokemonData.pokemonData.types[0] &&
+    pokemonData.pokemonData.types[0].type &&
+    pokemonData.pokemonData.types[0].type.name
+      ? colorPalette[pokemonData.pokemonData.types[0].type.name].backgroundImg + ',url(/assets/images/sparkles.webp)' + ((pokemonData.pokemonData.specieData?.is_mythical)?',url(/assets/images/galaxy1.webp)':'')
+      : ''
+  "
+>
+  <div class="imgContainer">
+    <img
+      mat-card-image
+      class="pokemonImage"
+      [src]="
+        pokemonData &&
+        pokemonData.pokemonData &&
+        pokemonData.pokemonData.sprites &&
+        pokemonData.pokemonData.sprites.other &&
+        pokemonData.pokemonData.sprites.other['dream_world'] &&
+        pokemonData.pokemonData.sprites.other['dream_world'].front_default
+          ? pokemonData.pokemonData.sprites.other['dream_world'].front_default
+          : pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.sprites &&
+            pokemonData.pokemonData.sprites.other &&
+            pokemonData.pokemonData.sprites.other['official-artwork'] &&
+            pokemonData.pokemonData.sprites.other['official-artwork']
+              .front_default
+          ? pokemonData.pokemonData.sprites.other['official-artwork']
+              .front_default
+          : ''
+      "
+      [alt]="'NA'"
+    />
+  </div>
+  <mat-card class="poke-card" appearance="outlined">
+    <mat-card-header class="pokeHeader">
+      <div mat-card-avatar class="poke-header-image" *ngIf="!pokemonData.pokemonData?.specieData?.is_legendary && !pokemonData.pokemonData?.specieData?.is_mythical"
+      [style.backgroundImage]="'url(/assets/images/goldAvatarFrame.png)'">
+        <img
+          class="headerImage"
+          [src]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.sprites &&
+            pokemonData.pokemonData.sprites.other &&
+            pokemonData.pokemonData.sprites.other['showdown'] &&
+            pokemonData.pokemonData.sprites.other['showdown'].front_default
+              ? pokemonData.pokemonData.sprites.other['showdown'].front_default
+              : ''
+          "
+          [alt]="'NA'"
+        />
+      </div>
+      <div mat-card-avatar class="poke-header-image" *ngIf="pokemonData.pokemonData?.specieData?.is_legendary && !pokemonData.pokemonData?.specieData?.is_mythical"
+      [style.backgroundImage]="'url(/assets/images/fireAvatarFrame.png)'">
+        <img
+          class="headerImage"
+          [src]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.sprites &&
+            pokemonData.pokemonData.sprites.other &&
+            pokemonData.pokemonData.sprites.other['showdown'] &&
+            pokemonData.pokemonData.sprites.other['showdown'].front_default
+              ? pokemonData.pokemonData.sprites.other['showdown'].front_default
+              : ''
+          "
+          [alt]="'NA'"
+        />
+      </div>
+      <div mat-card-avatar class="poke-header-image" *ngIf="pokemonData.pokemonData?.specieData?.is_mythical"
+      [style.backgroundImage]="'url(/assets/images/fxVE.gif)'">
+        <img
+          class="headerImage"
+          [src]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.sprites &&
+            pokemonData.pokemonData.sprites.other &&
+            pokemonData.pokemonData.sprites.other['showdown'] &&
+            pokemonData.pokemonData.sprites.other['showdown'].front_default
+              ? pokemonData.pokemonData.sprites.other['showdown'].front_default
+              : ''
+          "
+          [alt]="'NA'"
+        />
+      </div>
+      <mat-card-title
+        class="nameHeader"
+        [style.color]="
+          pokemonData &&
+          pokemonData.pokemonData &&
+          pokemonData.pokemonData.types &&
+          pokemonData.pokemonData.types.length &&
+          pokemonData.pokemonData.types.length > 0 &&
+          pokemonData.pokemonData.types[0] &&
+          pokemonData.pokemonData.types[0].type &&
+          pokemonData.pokemonData.types[0].type.name
+            ? colorPalette[pokemonData.pokemonData.types[0].type.name].textColor
+            : ''
+        "
+        >{{ pokemonData.name | titlecase }}</mat-card-title
+      >
+      <mat-card-subtitle>
+        <mat-card-content class="pokeContent">
+          <div *ngFor="let type of pokemonData.pokemonData?.types">
+            <div>
+              <img
+                class="statIcon"
+                [src]="typeIconMapping[type.type.name]"
+                matTooltipPosition="after"
+                [matTooltip]="type.type.name"
+              />
+            </div>
+          </div> </mat-card-content
+      ></mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="cardFooter">
+      <div class="middleElement">
+        <img
+          class="statIcon extraStatIcon"
+          src="/assets/svg/scales-weight-svgrepo-com.svg"
+          matTooltipPosition="after"
+          matTooltip="weight"
+        />
+        <span
+          class="extraStatUnit"
+          [style.color]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.types &&
+            pokemonData.pokemonData.types.length &&
+            pokemonData.pokemonData.types.length > 0 &&
+            pokemonData.pokemonData.types[0] &&
+            pokemonData.pokemonData.types[0].type &&
+            pokemonData.pokemonData.types[0].type.name
+              ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+                  .textColor
+              : ''
+          "
+          >{{ pokemonData.pokemonData?.weight }}</span
+        >
+        <span
+          class="extraStatUnit"
+          [style.color]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.types &&
+            pokemonData.pokemonData.types.length &&
+            pokemonData.pokemonData.types.length > 0 &&
+            pokemonData.pokemonData.types[0] &&
+            pokemonData.pokemonData.types[0].type &&
+            pokemonData.pokemonData.types[0].type.name
+              ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+                  .textColor
+              : ''
+          "
+          >lb</span
+        >
+        <img
+          class="statIcon extraStatIcon"
+          src="/assets/svg/measuring-tape-svgrepo-com.svg"
+          matTooltipPosition="after"
+          matTooltip="height"
+        />
+        <span
+          class="extraStatUnit"
+          [style.color]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.types &&
+            pokemonData.pokemonData.types.length &&
+            pokemonData.pokemonData.types.length > 0 &&
+            pokemonData.pokemonData.types[0] &&
+            pokemonData.pokemonData.types[0].type &&
+            pokemonData.pokemonData.types[0].type.name
+              ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+                  .textColor
+              : ''
+          "
+          >{{ pokemonData.pokemonData?.height }}</span
+        >
+        <span
+          class="extraStatUnit"
+          [style.color]="
+            pokemonData &&
+            pokemonData.pokemonData &&
+            pokemonData.pokemonData.types &&
+            pokemonData.pokemonData.types.length &&
+            pokemonData.pokemonData.types.length > 0 &&
+            pokemonData.pokemonData.types[0] &&
+            pokemonData.pokemonData.types[0].type &&
+            pokemonData.pokemonData.types[0].type.name
+              ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+                  .textColor
+              : ''
+          "
+          >dm</span
+        >
+      </div>
+      <div class="card2ndlevel">
+        <div
+          class="statContainer"
+          *ngFor="let stat of pokemonData.pokemonData?.stats"
+        >
+          <div class="statLabel">
+            <img
+              class="statIcon"
+              [src]="statIconMapping[stat.stat.name]"
+              matTooltipPosition="after"
+              [matTooltip]="stat.stat.name"
+            />
+            <span
+              class="statDisplay"
+              [style.color]="
+                pokemonData &&
+                pokemonData.pokemonData &&
+                pokemonData.pokemonData.types &&
+                pokemonData.pokemonData.types.length &&
+                pokemonData.pokemonData.types.length > 0 &&
+                pokemonData.pokemonData.types[0] &&
+                pokemonData.pokemonData.types[0].type &&
+                pokemonData.pokemonData.types[0].type.name
+                  ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+                      .textColor
+                  : ''
+              "
+            >
+              {{ stat.base_stat }}</span
+            >
+          </div>
+
+          <app-custom-progress-bar
+            [value]="stat.base_stat"
+          ></app-custom-progress-bar>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+  <div class="poke-card-after-shadow-container" *ngIf="
+  !pokemonData.pokemonData?.specieData?.is_legendary &&
+  !pokemonData.pokemonData?.specieData?.is_mythical
+">
+    <mat-card
+      class="poke-card-after-shadow"
+      appearance="outlined"
+      [style.backgroundImage]="
+        pokemonData &&
+        pokemonData.pokemonData &&
+        pokemonData.pokemonData.types &&
+        pokemonData.pokemonData.types.length &&
+        pokemonData.pokemonData.types.length > 0 &&
+        pokemonData.pokemonData.types[0] &&
+        pokemonData.pokemonData.types[0].type &&
+        pokemonData.pokemonData.types[0].type.name
+          ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+              .backgroundNormalFrame
+          : ''
+      "
+    ></mat-card>
+  </div>
+  <div class="poke-card-after-shadow-container" *ngIf="
+      pokemonData.pokemonData?.specieData?.is_legendary &&
+      !pokemonData.pokemonData?.specieData?.is_mythical
+">
+    <mat-card
+      class="poke-card-after-shadow"
+      appearance="outlined"
+      [style.backgroundImage]="
+      pokemonData &&
+      pokemonData.pokemonData &&
+      pokemonData.pokemonData.types &&
+      pokemonData.pokemonData.types.length &&
+      pokemonData.pokemonData.types.length > 0 &&
+      pokemonData.pokemonData.types[0] &&
+      pokemonData.pokemonData.types[0].type &&
+      pokemonData.pokemonData.types[0].type.name
+        ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+            .backgroundLegendaryFrame
+        : ''
+    "
+    ></mat-card>
+  </div>
+  <div class="poke-card-after-shadow-container" *ngIf="pokemonData.pokemonData?.specieData?.is_mythical">
+    <mat-card
+      class="poke-card-after-shadow"
+      appearance="outlined"
+      [style.backgroundImage]="
+      pokemonData &&
+      pokemonData.pokemonData &&
+      pokemonData.pokemonData.types &&
+      pokemonData.pokemonData.types.length &&
+      pokemonData.pokemonData.types.length > 0 &&
+      pokemonData.pokemonData.types[0] &&
+      pokemonData.pokemonData.types[0].type &&
+      pokemonData.pokemonData.types[0].type.name
+        ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+            .backgroundMythicalFrame
+        : ''
+    "
+    ></mat-card>
+  </div>
+  <mat-card
+    *ngIf="
+      !pokemonData.pokemonData?.specieData?.is_legendary &&
+      !pokemonData.pokemonData?.specieData?.is_mythical
+    "
+    class="poke-card-after"
+    appearance="outlined"
+    [style.backgroundImage]="
+      pokemonData &&
+      pokemonData.pokemonData &&
+      pokemonData.pokemonData.types &&
+      pokemonData.pokemonData.types.length &&
+      pokemonData.pokemonData.types.length > 0 &&
+      pokemonData.pokemonData.types[0] &&
+      pokemonData.pokemonData.types[0].type &&
+      pokemonData.pokemonData.types[0].type.name
+        ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+            .backgroundNormalFrame
+        : ''
+    "
+  ></mat-card>
+  <mat-card
+    *ngIf="
+      pokemonData.pokemonData?.specieData?.is_legendary &&
+      !pokemonData.pokemonData?.specieData?.is_mythical
+    "
+    class="poke-card-after"
+    appearance="outlined"
+    [style.backgroundImage]="
+      pokemonData &&
+      pokemonData.pokemonData &&
+      pokemonData.pokemonData.types &&
+      pokemonData.pokemonData.types.length &&
+      pokemonData.pokemonData.types.length > 0 &&
+      pokemonData.pokemonData.types[0] &&
+      pokemonData.pokemonData.types[0].type &&
+      pokemonData.pokemonData.types[0].type.name
+        ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+            .backgroundLegendaryFrame
+        : ''
+    "
+  ></mat-card>
+  <mat-card
+    *ngIf="pokemonData.pokemonData?.specieData?.is_mythical"
+    class="poke-card-after"
+    appearance="outlined"
+    [style.backgroundImage]="'url(/assets/images/neonAnimtedFrame.webp)'"
+  ></mat-card>
+  <mat-card
+    *ngIf="pokemonData.pokemonData?.specieData?.is_mythical"
+    class="poke-card-after"
+    appearance="outlined"
+    [style.backgroundImage]="
+      pokemonData &&
+      pokemonData.pokemonData &&
+      pokemonData.pokemonData.types &&
+      pokemonData.pokemonData.types.length &&
+      pokemonData.pokemonData.types.length > 0 &&
+      pokemonData.pokemonData.types[0] &&
+      pokemonData.pokemonData.types[0].type &&
+      pokemonData.pokemonData.types[0].type.name
+        ? colorPalette[pokemonData.pokemonData.types[0].type.name]
+            .backgroundMythicalFrame
+        : ''
+    "
+  ></mat-card>
+</div>

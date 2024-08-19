@@ -1,0 +1,221 @@
+.pokemonImage {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  object-fit: contain;
+  filter: drop-shadow(11px 14px 4px rgba(0, 0, 0, 0.5));
+  position: relative;
+  z-index: 99;
+  cursor: pointer;
+}
+
+.poke-cardContainer {
+  background-blend-mode: unset;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 250px;
+  height: 333px;
+  border-radius: 14px;
+  transform: perspective(1000px);
+  transform-style: preserve-3d;
+  box-shadow: 0px 8px 24px -5px #00000063;
+  margin: 10px;
+}
+
+.poke-header-image {
+  background-blend-mode: screen;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.poke-cardContainer.blendHard {
+  background-blend-mode: lighten;
+}
+
+.poke-card {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff00;
+  position: absolute;
+  top: 0px;
+  padding: 3px 5px;
+}
+
+.poke-card-after {
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 0px;
+  background-color: #ffffff00;
+  pointer-events: none;
+}
+
+.poke-card-after-shadow {
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: brightness(0) blur(3px);
+  width: 96%;
+  height: 97%;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: rgba(255, 255, 255, 0);
+  pointer-events: none;
+
+}
+
+.poke-card-after-shadow-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0px;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.pokeHeader {
+  border: none;
+  backdrop-filter: blur(12px);
+}
+
+.mat-mdc-card-content {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 0px !important;
+}
+
+.stat {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 47px;
+}
+
+.card2ndlevel {
+  row-gap: 4px;
+  column-gap: 10px;
+  flex-direction: column;
+  display: flex;
+  height: 123px;
+  flex-wrap: wrap;
+  border: none;
+}
+
+.types {
+  display: flex;
+}
+
+.middleElement {
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  padding: 0px 0px 10px 0px;
+}
+
+.headerImage {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border-radius: 50%;
+  filter: drop-shadow(2px 3px 3px black);
+  object-fit: contain;
+  position: relative;
+  top: 3px;
+  left: 3px;
+}
+
+.statContainer {
+  width: 47%;
+}
+
+.cardFooter {
+  padding: 10px 10px 15px 22px;
+  backdrop-filter: blur(12px);
+  position: absolute;
+  bottom: 0px;
+  width: 84%;
+}
+
+.statIcon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right: 2px;
+  padding: 2px;
+  filter: drop-shadow(2px 3px 3px black);
+}
+
+.blueOrb {
+  background: radial-gradient(circle at 30% 30%, #00FFFF, #00008B);
+}
+
+.redOrb {
+  background: radial-gradient(circle at 30% 30%, #ff9a9a, #a60000);
+}
+
+.whiteOrb {
+  background: radial-gradient(circle at 30% 30%, #ffffff, #777777);
+}
+
+.greenOrb {
+  background: radial-gradient(circle at 30% 30%, #7dffb7, #008929);
+}
+
+.nameHeader {
+  text-shadow: 2px 2px 3px #00000063;
+  padding: 0px !important;
+  font-size: 20px;
+}
+
+.statDisplay {
+  font-size: 15px;
+  text-shadow: 2px 2px 3px #00000063;
+}
+
+.extraStatUnit {
+  font-size: 15px;
+  text-shadow: 2px 2px 3px #00000063;
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateZ(50px);
+  position: relative;
+  top: 68px;
+}
+
+
+
+.statLabel {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.extraStatUnit {
+  margin-right: 7px;
+}
+
+.extraStatIcon {
+  margin-right: 2px !important;
+}
+
+.sparkleImage {
+  width: 250px;
+  height: 333px;
+}

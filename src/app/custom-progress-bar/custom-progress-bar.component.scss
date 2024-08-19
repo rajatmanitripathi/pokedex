@@ -1,0 +1,15 @@
+.progress-bar-container {
+  width: 100%;
+  background-color: rgb(255 255 255 / 79%);
+  border-radius: 3px;
+  overflow: hidden;
+  height: 7px;
+}
+
+.progress-bar {
+  height: 100%;
+  transition: width 0.4s ease-in-out;
+  /* Smooth transition effect */
+  border-radius: 8px 0 0 8px;
+  /* Rounding the edges of the progress bar */
+}

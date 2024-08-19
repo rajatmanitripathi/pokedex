@@ -1,0 +1,29 @@
+.headerContainer{
+    background: #ffffff;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    box-shadow: 0px 9px 10px 3px #0000000a;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+.headerLogoContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 14px;
+}
+.headerLogo{
+    width: 130px;
+    height: 46px;
+    object-fit: cover;
+}
+
+.headerIcon{
+    width: 24px;
+    height: 24px;
+    position: relative;
+    left: -39px;
+    top: 3px;
+    position: relative;
+}

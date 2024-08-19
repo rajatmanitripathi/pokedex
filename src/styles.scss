@@ -1,0 +1,174 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --app-background: #ffffff;
+  --app-accent-color: #e6281d;
+  --app-accent-color-lighter: #e8635c;
+  --app-accent--darker: rgb(161, 0, 0);
+  --app-accent2-color: #0095F6;
+  --app-accent2-color-lighter: #67bdff;
+  --app-accent2-color-darker: #247cbf;
+  --white-color: #ffffff;
+  --string-color: #CE9178;
+  --app-error-color: #ff0000;
+  --app-error-color-lighter: #ff7272;
+  --app-error-color-darker: #950000;
+  --app-info-color: #ecec00;
+  --app-info-color-lighter: #ffff9e;
+  --app-info-color-darker: #9c9c00;
+  --app-success-color: #03A062;
+  --app-success-color-lighter: #77ffc8;
+  --app-success-darker: #006b40;
+  --app-light-gray-color: #d6d6d6;
+  // --app-font-family: 'IBM Plex Mono', Courier, 'Courier New', monospace;
+  --app-font-family: 'Roboto', Courier, 'Courier New', monospace;
+  --font-xxs: 0.2rem;
+  --font-xs: 0.4rem;
+  --font-s: 0.6rem;
+  --font-sm: 0.8rem;
+  --font-m: 1rem;
+  --font-ml: 1.2rem;
+  --font-l: 1.4rem;
+  --font-xl: 1.6rem;
+  --font-xxl: 1.8rem;
+  --app-transition: 0.2s ease-in-out;
+  --shadow-ini-down-s: rgb(0 0 0 / 5%) 0px 5px 100px -20px, rgb(0 0 0 / 9%) 0px 5px 60px -30px;
+  --shadow-hover-down-s: rgb(0 0 0 / 16%) 0px 50px 100px -20px, rgb(0 0 0 / 17%) 0px 30px 60px -30px;
+  --shadow-down-s: rgba(100, 100, 111, 0.2) 2px 2px 15px 3px;
+  --shadow-down-s-transparent: rgb(0 0 0 / 12%) 2px 2px 15px 3px;
+  --shadow-right-normal: rgb(0 0 0 / 38%) 5px 0px 30px;
+  font-size: clamp(15px, 1.05vw, 22px);
+  --app-border-radius-m: 6px;
+  --app-border-radius-s: 6px;
+  --app-border-radius-xs: 6px;
+}
+
+body {
+  margin: 0px;
+  padding: 10px;
+  font-family: var(--app-font-family);
+  // background-color: var(--app-background);
+  background-image: url("/assets/images/appBackground.jpg");
+  color: black;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+
+body * {
+  margin: 0px;
+  padding: 0px;
+  font-family: var(--app-font-family);
+  color: black;
+
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  overflow: hidden;
+}
+
+.statIcon {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-right: 7px;
+  padding: 2px;
+}
+
+.mat-pseudo-checkbox {
+  margin-right: 5px !important;
+}
+
+.cdk-overlay-pane {
+  width: 300px !important;
+}
+
+.mat-mdc-select-panel {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mat-mdc-option{
+  width: 100%;
+}
+
+.mat-mdc-option.flexOption {
+  width: 111px !important;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+.mat-mdc-form-field-text-prefix {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.blockLabel {
+  display: block;
+  width: 100%;
+  margin-left: 44px;
+}
+
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 28px !important;
+}
+
+.mat-mdc-notch-piece.mdc-notched-outline__leading{
+  border: none;
+}
+
+.mat-mdc-notch-piece.mdc-notched-outline__trailing{
+  border: none;
+}
+
+.mdc-text-field--outlined {
+  padding-right: 16px !important;
+  padding-left: 16px !important;
+}
+
+.mat-mdc-form-field-infix{
+  padding: 5px !important;
+  min-height: 35px !important;
+}
+
+.mat-mdc-form-field.pokemonSearch{
+  width: calc(100% - 68px);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #dddddd;
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--app-accent-color); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--app-accent2-color-darker); 
+}
+
+.mat-mdc-card-subtitle{
+  padding: 0px !important;
+}

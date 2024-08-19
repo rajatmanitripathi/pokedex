@@ -1,0 +1,138 @@
+.pokedexContainer {
+    background-color: var(--app-accent-color);
+    border-radius: 11px;
+    border: 1px solid black;
+    padding: 10px;
+    height: calc(100vh - 22px);
+}
+
+
+.topCircleContainer {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+
+#bigCircle {
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: black solid 1px;
+    background-color: white;
+    box-shadow: inset 2px 2px 3px 3px gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+#blueCircle {
+    height: 36px;
+    width: 36px;
+    border-radius: 20px;
+    background-color: blue;
+}
+
+#redDot {
+    border-radius: 6px;
+    height: 10px;
+    width: 10px;
+    border: black solid 1px;
+    background-color: red;
+    margin: 10px 5px;
+}
+
+#yellowDot {
+    border-radius: 6px;
+    height: 10px;
+    width: 10px;
+    border: black solid 1px;
+    background-color: yellow;
+    margin: 10px 5px;
+}
+
+#greenDot {
+    border-radius: 6px;
+    height: 10px;
+    width: 10px;
+    border: black solid 1px;
+    background-color: lightgreen;
+    margin: 10px 5px;
+}
+
+
+#screen {
+    border-radius: 10px 10px 10px 30px;
+    border: black solid 1px;
+    height: 150px;
+    width: 90%;
+    background-color: lightgray;
+    box-shadow: inset 2px 1px 2px 2px gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.screenContainer {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.screenBtnContainer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    padding-top: 5px;
+}
+
+.screenBigRedBtnContainer {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-left: 11px;
+    position: relative;
+    top: -8px;
+}
+
+
+#display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75%;
+    width: 75%;
+    border-radius: 0 0 0 20px;
+    background-color: black;
+    color: white;
+}
+
+.redButton {
+    border: black solid 1px;
+    height: 5px;
+    width: 5px;
+    border-radius: 10px;
+    background-color: red;
+}
+
+.detailsContainer {
+    height: auto;
+    width: 100%;
+    min-height: 300px;
+    height: auto;
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.detailScreen {
+    height: 100%;
+}
