@@ -1,4 +1,4 @@
-<div
+<div (click)="openPokedexDialog()"
   class="poke-cardContainer"
   [ngClass]="'pokeMon_' + pokemonData.pokemonData?.id + ((pokemonData.pokemonData?.specieData?.is_legendary || pokemonData.pokemonData?.specieData?.is_mythical)?' blendHard':'')"
   [style.backgroundImage]="

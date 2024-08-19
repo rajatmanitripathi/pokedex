@@ -43,6 +43,17 @@
   --app-border-radius-m: 6px;
   --app-border-radius-s: 6px;
   --app-border-radius-xs: 6px;
+
+
+
+
+  //pokdex
+  --main-bg-color: var(--app-accent-color);
+  --secondary-bg-color: #f2f2f2;
+  --main-screen-bg-color: #98cb98;
+  --secondary-screen-bg-color: #9e9d9d;
+  --main-buttons-color: #585858;
+  --square-buttons-color: #7ca9f7;
 }
 
 body {
@@ -135,6 +146,7 @@ body {
 .mat-mdc-autocomplete-panel {
   background: #ffffff00 !important;
   backdrop-filter: blur(50px) !important;
+
   .mat-mdc-option {
     * {
       color: var(--app-accent3-color) !important;
@@ -245,7 +257,21 @@ body {
 }
 
 .mat-mdc-paginator-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cdk-global-overlay-wrapper {
+  backdrop-filter: blur(15px);
+}
+
+.popupDialog {
+  width: 456px !important;
+  height: 600px !important;
+  background: #ffffff00;
+  .mat-mdc-dialog-surface.mdc-dialog__surface{
+    background: #ff000000;
+    border-top-right-radius: 10px;
+  }
 }

@@ -5,6 +5,8 @@ import { typeIconMapping } from '../constants/typeConstant';
 import { colorPalette } from '../constants/colorPaletteConstant';
 import { statIconMapping } from '../constants/statIconConstant';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 
 @Component({
   selector: 'app-pokemon-card',
@@ -17,6 +19,10 @@ export class PokemonCardComponent implements OnInit, AfterViewInit {
   typeIconMapping: { [key: string]: string } = typeIconMapping;
   colorPalette: ColourPalette = colorPalette;
   tiltable: any;
+
+  constructor(public dialog: MatDialog){
+
+  }
 
   ngOnInit(): void {
   }
@@ -35,6 +41,18 @@ export class PokemonCardComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  openPokedexDialog(): void { 
+    let dialogRef = this.dialog.open(PokemonDetailsComponent, {
+      panelClass: 'popupDialog',
+      data: { data: this.pokemonData }
+
+    }); 
+  
+    dialogRef.afterClosed().subscribe(result => { 
+      console.log("closed");
+    }); 
+  } 
 
   ngOnDestroy(){
     if (this.tiltable) {

@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 const routes: Routes = [
   {"path":"",
@@ -31,6 +32,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatCardModule, MatSelectModule,MatTooltipModule,MatPaginatorModule,MatInputModule,MatAutocompleteModule,
     ReactiveFormsModule,MatIconModule
-  ]
+  ],
+  providers:[{provide: MAT_DIALOG_DATA, useValue: {}}]
 })
 export class HomeModule { }
