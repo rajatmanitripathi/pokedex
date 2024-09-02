@@ -61,7 +61,7 @@ body {
   padding: 10px;
   font-family: var(--app-font-family);
   // background-color: var(--app-background);
-  background-image: url("/assets/images/pokemonBackground.jpg");
+  background-image: url("/assets/images/pokemonBackgroundFiltered.png");
   color: black;
   background-attachment: fixed;
   background-size: cover;
@@ -76,7 +76,7 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  backdrop-filter: brightness(0.3) blur(6px);
+  // backdrop-filter: brightness(0.3) blur(6px);
   pointer-events: none;
   /* Allows interactions with underlying content */
   z-index: -1;

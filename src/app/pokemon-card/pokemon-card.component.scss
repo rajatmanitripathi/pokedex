@@ -1,6 +1,6 @@
 .pokemonImage {
-  width: 100px;
-  height: 100px;
+  width: 115px;
+  height: 115px;
   margin: auto;
   object-fit: contain;
   filter: drop-shadow(11px 11px 2px rgba(0, 0, 0, 0.8));
@@ -102,7 +102,7 @@
 }
 
 .card2ndlevel {
-  row-gap: 4px;
+  row-gap: 0px;
   column-gap: 10px;
   flex-direction: column;
   display: flex;
@@ -120,7 +120,7 @@
   display: flex;
   align-items: center;
   justify-content: start;
-  padding: 0px 0px 10px 0px;
+  padding: 0px 0px 5px 0px;
 }
 
 .headerImage {
@@ -140,7 +140,7 @@
 }
 
 .cardFooter {
-  padding: 10px 10px 15px 32px;
+  padding: 5px 5px 0px 25px;
   backdrop-filter: blur(12px);
   position: absolute;
   bottom: 0px;

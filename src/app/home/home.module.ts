@@ -17,16 +17,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EvolutionChainComponent } from '../evolution-chain/evolution-chain.component';
 
 const routes: Routes = [
   {"path":"",
    "component":HomeComponent,
    "pathMatch":'full'
-  }
+  },
+  {"path":"evolution",
+    "component":EvolutionChainComponent,
+    "pathMatch":'full'
+   }
 ];
 
 @NgModule({
-  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent],
+  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent, EvolutionChainComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

@@ -1,5 +1,5 @@
 <div class="progress-bar-container" [style.border]="'2px solid ' + borderColor">
-    <div class="progress-bar" [style.width.%]="value" [style.background-color]="color"></div>
+    <div class="progress-bar" [style.width.%]="(value/150)*100" [style.background-color]="color"></div>
   </div>
 
   <!-- <div class="star-rating-container">

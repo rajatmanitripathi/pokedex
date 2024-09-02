@@ -52,6 +52,7 @@
     <div class="top-screen-container info">
       <div id="about-screen" class="right-panel-screen">
         Height: 70cm Weight: 6.9kg
+        
       </div>
     </div>
     <!-- Bottom Buttons -->
@@ -114,7 +115,12 @@
     <!-- Top screen -->
     <div class="top-screen-container">
       <div id="about-screen" class="right-panel-screen">
-        Height: 70cm Weight: 6.9kg
+       <span> Height: 70cm Weight: 6.9kg</span>
+       <button (click)="genrateTree()">click me</button>
+       <div id="collapsable-example" style="width: 500px; height: 500px;">
+
+       </div>
+        <!-- <app-evolution-chain *ngIf="chain.chain.evolves_to.length" [evoChain]="chain"></app-evolution-chain> -->
       </div>
     </div>
     <!-- Blue Buttons -->
