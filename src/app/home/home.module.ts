@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EvolutionChainComponent } from '../evolution-chain/evolution-chain.component';
-
+import { OrganizationChartModule } from 'primeng/organizationchart';
 const routes: Routes = [
   {"path":"",
    "component":HomeComponent,
@@ -36,7 +36,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     MatCardModule, MatSelectModule,MatTooltipModule,MatPaginatorModule,MatInputModule,MatAutocompleteModule,
-    ReactiveFormsModule,MatIconModule
+    ReactiveFormsModule,MatIconModule,OrganizationChartModule
   ],
   providers:[{provide: MAT_DIALOG_DATA, useValue: {}}]
 })

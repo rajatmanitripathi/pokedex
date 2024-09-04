@@ -13,7 +13,7 @@ export type evolutionChain={
           min_affection: any
           min_beauty: any
           min_happiness: any
-          min_level: number
+          min_level: number|null
           needs_overworld_rain: boolean
           party_species: any
           party_type: any
@@ -72,6 +72,15 @@ export type evolutionChain={
       name: string
       url: string
     }
+  }
+
+  export type TreeNode={
+    label: string;
+    data: string;
+    expanded?: boolean;
+    image:string;
+    children?: TreeNode[];
+    
   }
 
   

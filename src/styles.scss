@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../../PokeDex/public/assets/libraries/Treant.css';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 :root {
   --app-background: #ffffff;
   --app-accent-color: #e6281d;
@@ -83,8 +87,8 @@ body::before {
 }
 
 body * {
-  margin: 0px;
-  padding: 0px;
+  // margin: 0px;
+  // padding: 0px;
   font-family: var(--app-font-family);
   color: black;
 
@@ -208,6 +212,7 @@ body {
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 /* Track */
@@ -217,13 +222,13 @@ body {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--app-accent-color);
+  background-color: var(--app-accent-color);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--app-accent-color-darker);
+  background-color: var(--app-accent3-color);
   cursor: pointer;
 }
 
@@ -270,8 +275,35 @@ body {
   width: 456px !important;
   height: 600px !important;
   background: #ffffff00;
-  .mat-mdc-dialog-surface.mdc-dialog__surface{
+
+  .mat-mdc-dialog-surface.mdc-dialog__surface {
     background: #ff000000;
     border-top-right-radius: 10px;
   }
+}
+
+
+.p-organizationchart .p-organizationchart-node-content {
+  border: none !important;
+  background: #ffffff00 !important;
+  color: #4b5563 !important;
+  padding: 0px !important;
+}
+
+.p-icon-wrapper {
+  display: inline-flex;
+  position: relative;
+  top: -16px;
+}
+
+.flag {
+  width: 70px !important;
+  max-height: 50px !important;
+  object-fit: contain !important;
+}
+
+.p-2 {
+  font-size: 13px;
+  position: relative;
+  top: -10px;
 }

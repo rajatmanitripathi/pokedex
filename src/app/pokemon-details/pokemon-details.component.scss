@@ -149,6 +149,8 @@ input {
 /* poke-dex */
 #pokedex {
     height: 500px;
+    min-height: 500px;
+    max-height: 500px;
     width: 100%;
     display: flex;
     border-radius: 10px;
@@ -512,7 +514,7 @@ input {
     justify-content: center;
     align-items: center;
     border-right: 3px solid black;
-
+    overflow: hidden;
 }
 
 .info.top-screen-container {
@@ -523,6 +525,7 @@ input {
 }
 
 .right-panel-screen {
+    overflow: auto;
     font-family: 'Press Start 2P', cursive;
     width: 80%;
     height: 80%;
@@ -696,3 +699,4 @@ input {
 .linkedin {
     background-image: url(https://cdn-icons-png.flaticon.com/512/61/61109.png);
 }
+

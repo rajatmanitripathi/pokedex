@@ -14,6 +14,8 @@ import { map, startWith } from 'rxjs/operators';
 import { colorPalette } from '../constants/colorPaletteConstant';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+declare var $: any;  // Import jQuery
+declare var Treant: any;  // Import Treant.js
 
 @Component({
   selector: 'app-home',
@@ -166,5 +168,68 @@ export class HomeComponent implements OnInit {
 
   toggleFilter() {
     this.filterElement.toggle();
+  }
+
+
+  chartConfig = {
+    chart: {
+      container: "#treant-id",
+      node: {
+        HTMLclass: "nodeExample1"
+      },
+      connectors: {
+        type: 'step'
+      }
+    },
+    nodeStructure: {
+      text: { name: "Parent Node" },
+      children: [
+        {
+          text: { name: "Child Node 1" },
+          children: [
+            { text: { name: "Grandchild Node 1" } },
+            { text: { name: "Grandchild Node 2" } }
+          ]
+        },
+        {
+          text: { name: "Child Node 2" }
+        }
+      ]
+    }
+  };
+  private options: any = {
+    container: '#treant-id',
+    levelSeparation: 20,
+    siblingSeparation: 15,
+    subTeeSeparation: 15,
+    rootOrientation: 'NORTH',
+    scrollbar: 'native',
+    node: {
+      HTMLclass: 'treant-class',
+      drawLineThrough: false
+    },
+    connectors: {
+      type: 'bCurve',
+      style: {
+        'stroke-width': 2,
+        'stroke': '#ccc'
+      }
+    },
+    animation: {
+      nodeSpeed: 500,
+    }
+  };
+
+  rootNode = {
+    text: {
+      name: 'ROOT'
+    },
+    HTMLclass: 'angular',
+    HTMLid: 'tree-root',
+    id: 0,
+    image: '/assets/images/Bug.jpg',
+  };
+  genrateTree() {
+    new Treant(this.chartConfig);
   }
 }
