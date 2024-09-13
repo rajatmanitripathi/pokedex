@@ -148,9 +148,9 @@ input {
 
 /* poke-dex */
 #pokedex {
-    height: 500px;
-    min-height: 500px;
-    max-height: 500px;
+    height: 550px;
+    min-height: 550px;
+    max-height: 550px;
     width: 100%;
     display: flex;
     border-radius: 10px;
@@ -286,7 +286,7 @@ input {
     background-color: var(--main-screen-bg-color);
     border: solid black 2px;
     border-radius: 5%;
-    background-image: url(https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png);
+   
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -525,7 +525,6 @@ input {
 }
 
 .right-panel-screen {
-    overflow: auto;
     font-family: 'Press Start 2P', cursive;
     width: 80%;
     height: 80%;
@@ -542,6 +541,26 @@ input {
     padding-left: 8px;
     line-height: 2;
 }
+
+// .evoScreen {
+//     overflow: auto;
+//     font-family: 'Press Start 2P', cursive;
+//     width: 80%;
+//     height: 80%;
+//     padding: 16px;
+//     background-color: var(--secondary-screen-bg-color);
+//     border: solid black 2px;
+//     border-radius: 4px;
+//     font-size: xx-small;
+//     padding-left: 2px;
+//     padding-right: 2px;
+//     // display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     text-align: left;
+//     padding-left: 8px;
+//     line-height: 2;
+// }
 
 /* square buttons grid */
 .square-buttons-container {
@@ -700,3 +719,56 @@ input {
     background-image: url(https://cdn-icons-png.flaticon.com/512/61/61109.png);
 }
 
+
+
+
+.pokedeSVGContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.pokedexContainer{
+    width: 100%;
+    height: 100%;
+}
+
+.pokemonDataContainer{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+}
+
+.pokemonImageContainer{
+    width: 82px;
+    height: 104px;
+    position: relative;
+    top: 198px;
+    left: 41px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.evoScreen {
+    position: relative;
+    top: 58px;
+    left: 197px;
+    width: 141px;
+    height: 211px;
+    overflow: auto;
+    font-family: 'Press Start 2P', cursive;
+    padding: 16px;
+    border-radius: 4px;
+    font-size: xx-small;
+    padding-left: 2px;
+    padding-right: 2px;
+    // display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    padding-left: 8px;
+    line-height: 2;
+}

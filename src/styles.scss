@@ -104,6 +104,11 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+input {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+}
+
 .statIcon {
   width: 15px;
   height: 15px;
@@ -205,9 +210,9 @@ body {
   min-height: 35px !important;
 }
 
-.mat-mdc-form-field.pokemonSearch {
-  width: calc(100% - 68px);
-}
+// .mat-mdc-form-field.pokemonSearch {
+//   width: calc(100% - 68px);
+// }
 
 /* width */
 ::-webkit-scrollbar {
@@ -272,8 +277,12 @@ body {
 }
 
 .popupDialog {
-  width: 456px !important;
-  height: 600px !important;
+  width: 350px !important;
+  height: 500px;
+  max-width: 350px !important;
+  max-height: 500px !important;
+  min-width: 350px !important;
+  min-height: 500px !important;
   background: #ffffff00;
 
   .mat-mdc-dialog-surface.mdc-dialog__surface {
@@ -290,6 +299,10 @@ body {
   padding: 0px !important;
 }
 
+.p-organizationchart-table>tbody>tr>td {
+  padding: 0px !important;
+}
+
 .p-icon-wrapper {
   display: inline-flex;
   position: relative;
@@ -298,7 +311,7 @@ body {
 
 .flag {
   width: 70px !important;
-  max-height: 50px !important;
+  height: 50px !important;
   object-fit: contain !important;
 }
 
@@ -306,4 +319,28 @@ body {
   font-size: 13px;
   position: relative;
   top: -10px;
+}
+
+.p-organizationchart .p-organizationchart-lines :nth-child(1 of .p-organizationchart-line-right) {
+  border-left: 1px solid #e2e8f0;
+  border-top-left-radius: 6px;
+}
+
+.p-organizationchart .p-organizationchart-lines :nth-child(1 of .p-organizationchart-line-left) {
+  border-right: 0 none;
+}
+
+.p-organizationchart .p-organizationchart-lines :nth-last-child(1 of .p-organizationchart-line-left) {
+  border-top-right-radius: 6px;
+}
+
+.p-organizationchart-lines {
+  td {
+    border-color: var(--app-accent3-color) !important;
+
+    div {
+      background: var(--app-accent3-color) !important;
+    }
+  }
+
 }
