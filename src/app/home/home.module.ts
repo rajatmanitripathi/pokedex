@@ -19,6 +19,12 @@ import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.comp
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EvolutionChainComponent } from '../evolution-chain/evolution-chain.component';
 import { OrganizationChartModule } from 'primeng/organizationchart';
+
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { AvatarModule } from 'primeng/avatar';
+
+import {MatDialogModule} from '@angular/material/dialog';
+import { CardOverviewComponent } from '../card-overview/card-overview.component';
 const routes: Routes = [
   {"path":"",
    "component":HomeComponent,
@@ -31,12 +37,12 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent, EvolutionChainComponent],
+  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent, EvolutionChainComponent,CardOverviewComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     MatCardModule, MatSelectModule,MatTooltipModule,MatPaginatorModule,MatInputModule,MatAutocompleteModule,
-    ReactiveFormsModule,MatIconModule,OrganizationChartModule
+    ReactiveFormsModule,MatIconModule,OrganizationChartModule,AvatarGroupModule,AvatarModule,MatDialogModule
   ],
   providers:[{provide: MAT_DIALOG_DATA, useValue: {}}]
 })

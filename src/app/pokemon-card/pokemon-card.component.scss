@@ -8,8 +8,13 @@
   z-index: 99;
   cursor: pointer;
 }
-
+.poke-cardContainer_back{
+  transform: rotateY(180deg);
+  transition: transform 0.6s ease;
+}
+.poke-cardContainer_back,
 .poke-cardContainer {
+  position: relative;
   background-blend-mode: unset;
   background-position: center;
   background-size: cover;
@@ -25,6 +30,14 @@
   transform-style: preserve-3d;
   box-shadow: 0px 8px 24px -5px #00000063;
   margin: 10px;
+}
+.poke-cardContainer.detailed{
+  max-width: 373px;
+  max-height: 500px;
+}
+.poke-cardContainer_back.detailed{
+  max-width: 373px;
+  max-height: 500px;
 }
 
 .poke-header-image {
@@ -203,9 +216,58 @@
   width: 100%;
   height: 100%;
 }
+.poke-card-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* spacing between card and circle */
+}
+.pokecardContainer{
+  display: flex;
+  width: 100%;
+}
+.evo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // gap: 10rem; // adds spacing between avatars
+  // height: 100%; // or set to specific height like 300px
+  // width: 100%;  // make responsive
+}
+.pokemon_.mirrored {
+  transform: scaleX(-1); /* Mirror horizontally */
+}
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+  // margin: 8px;
+  display: inline-block;
+}
 
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.small-poke-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #aaa;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* prevents shrinking */
+}
 
-
+.small-poke-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .statLabel {
   display: flex;
   justify-content: start;
@@ -224,4 +286,140 @@
 .sparkleImage {
   width: 250px;
   height: 333px;
+}
+::ng-deep .no-container .mat-mdc-dialog-container .mat-mdc-dialog-surface  {
+  background: transparent !important; // Remove white background
+  width: 100%;
+}
+
+// shuffle css from here
+
+
+.list {
+    position: absolute;        /* take it out of the normal layout */
+  top: 0;                    /* adjust as needed */
+  left: 0;
+  width: 100%;               /* or fixed width */
+  z-index: 9999;             /* ensure it's on top */
+  pointer-events: none; 
+  height: 652px;
+  list-style-type:none;
+  padding-left:0;
+}
+
+.card {
+  pointer-events: auto;
+  position: absolute;
+  transition: all 1s cubic-bezier(0.68,-.55,.265,1.55);
+  perspective: 1000;
+  -ms-transform: perspective(1000px);
+  -moz-transform: perspective(1000px);
+  -ms-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  
+  float: left;
+  width: 222px;
+  height: 311px;
+  background-color:transparent;
+  
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 30px 0 15px 15px;
+  
+  &:nth-child(5n) {
+      margin-right: 0;
+  }
+  
+  &.ani0 {
+      right: 948px;
+      bottom: 326px;
+  }
+  
+  &.ani1 {
+      right: 711px;
+      bottom: 326px;
+  }
+  
+  &.ani2 {
+      right: 474px;
+      bottom: 326px;
+  }
+  
+  &.ani3 {
+      right: 237px;
+      bottom: 326px;
+  }
+  
+  &.ani4 {
+      right: 0;
+      bottom: 326px;
+  }
+  
+  &.ani5 {
+      right: 948px;
+      bottom: 0;
+  }
+  
+  &.ani6 {
+      right: 711px;
+      bottom: 0;
+  }
+  
+  &.ani7 {
+      right: 474px;
+      bottom: 0;
+  }
+  
+  &.ani8 {
+      right: 237px;
+      bottom: 0;
+  }
+  
+}
+
+
+
+//gpt suggestion
+.evo-card-overlay-wrapper {
+  position: relative; /* parent context if needed */
+}
+// .card-stack-wrapper {
+//   position: relative;
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+// }
+
+// .stacked-list {
+//   list-style: none;
+//   padding: 0;
+//   margin: 0;
+//   position: relative;
+// }
+
+// .stacked-card {
+//   position: absolute;
+//   left: 0;
+//   width: 100%;
+//   transition: transform 0.3s ease, top 0.3s ease;
+// }
+
+
+
+//ANOTHER TEST FLIPPING
+.card-inner {
+  width: 100%;
+  height: 100%;
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+  border-radius: 10px;
+}
+
+.card-inner.flippedfrRight {
+  transform: rotateY(180deg);
+}
+.card-inner.flippedfrLeft {
+  transform: rotateY(-180deg);
 }

@@ -59,7 +59,15 @@
   --main-buttons-color: #585858;
   --square-buttons-color: #7ca9f7;
 }
-
+// * {
+// 	margin: 0;
+// 	padding: 0;
+// 	box-sizing: border-box;
+// }
+// body {
+// 	min-height: 100vh;
+// 	background: #111;
+// }
 body {
   margin: 0px;
   padding: 10px;
@@ -122,9 +130,9 @@ input {
   margin-right: 5px !important;
 }
 
-.cdk-overlay-pane {
-  width: 300px !important;
-}
+// .cdk-overlay-pane {
+//   width: 100% !important;
+// }
 
 .mat-mdc-select-panel {
   display: flex;
@@ -274,6 +282,8 @@ input {
 
 .cdk-global-overlay-wrapper {
   backdrop-filter: blur(15px);
+  justify-content: center !important;
+  align-items: center !important;
 }
 
 .popupDialog {

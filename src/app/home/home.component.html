@@ -15,11 +15,10 @@
             matInput
             [formControl]="searchControl"
             [matAutocomplete]="auto"
-            (ngModelChange)="onSearchInputChange($event)"
             spellcheck="false"
             placeholder="Search your Pokemon!"
           />
-          <mat-icon matTextPrefix>search</mat-icon>
+          <mat-icon matTextPrefix (click)="this.onEnter(this.searchControl.value)">search</mat-icon>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option
               class="flexOption"
@@ -79,17 +78,21 @@
 
     <div class="listPaginatorContainer">
       <div class="listContainer">
-        <ng-container *ngFor="let pokeData of paginatedList">
-          <app-pokemon-card
+        <ng-container *ngFor="let pokeData of viewPokeData">
+          
+           <app-pokemon-card
             class="abcd"
             [pokemonData]="pokeData"
+            [ListOfPokeData]="viewPokeData"
           ></app-pokemon-card>
+          <!-- <app-avataar [pokemonData]="pokeData"></app-avataar> -->
+        
+         
         </ng-container>
       </div>
       <div class="paginatorContainer">
         <mat-paginator
-          *ngIf="this.originalList && this.originalList.length > 0"
-          [length]="this.paginationCount"
+          [length]="this.totalPokeDocs"
           [pageSize]="pageSize"
           [pageSizeOptions]="[12, 50, 100]"
           aria-label="Select page"

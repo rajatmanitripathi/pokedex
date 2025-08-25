@@ -1,7 +1,10 @@
 export type evolutionChain={
     baby_trigger_item: any
-    chain: {
-      evolution_details: Array<any>
+    chain: chain
+    id: number
+  }
+export type chain={
+  evolution_details: Array<any>
       evolves_to: Array<{
         evolution_details: Array<{
           gender: any
@@ -38,10 +41,7 @@ export type evolutionChain={
         name: string
         url: string
       }
-    }
-    id: number
-  }
-
+}
   export type child ={
     evolution_details: Array<{
       gender: any

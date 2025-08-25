@@ -1,774 +1,184 @@
-//pokedex
-
-.empty-container {
-
-    border-top: 3px solid black;
-    border-right: 3px solid black;
-    border-top-right-radius: 10px;
-}
-
-.red {
-    background-color: #ff0000;
-}
-
-.yellow {
-    background-color: #fecb65;
-}
-
-.green {
-    background-color: #32cb65;
-}
-
-.blue {
-    background-color: #3298cb;
-}
-
-.light-blue {
-    background-color: #85bdfe;
-}
-
-.light-red {
-    background-color: #fe98cb;
-}
-
-.light-yellow {
-    background-color: #fefecb;
-}
-
-.light-green {
-    background-color: #98fe00;
-}
-
-
-.logo {
-    justify-self: start;
-    width: 100%;
-    height: 20%;
-    display: flex;
-    justify-content: center;
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    margin: 0;
+    display: grid;
     align-items: center;
-}
-
-.search-container {
-    width: 100%;
-    height: 80px;
-    justify-self: center;
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* poke-ball */
-.ball-container {
+    justify-items: center;
+    height: 100%;
+    color: #f4f7f7;
+    background-color: #586875;
+    font: 1rem/1 'Cabin', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* hide radio buttons, but still expose them to screen readers */
+  input {
+    position: absolute;
+    width: 1px;
+    clip: rect(0 0 0 0);
     overflow: hidden;
-    width: 60px;
-    height: 60px;
-    border: 2px solid black;
-    border-radius: 50%;
-    position: relative;
-    animation: shake 1.5s ease-in infinite;
-    animation-play-state: paused;
-}
-
-@keyframes shake {
-    0% {
-        transform: rotate(5deg);
-    }
-
-    5% {
-        transform: rotate(-5deg);
-    }
-
-    10% {
-        transform: rotate(5deg);
-    }
-
-    15% {
-        transform: rotate(-5deg);
-    }
-
-    20% {
-        transform: rotate(5deg);
-    }
-
-    25% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-.ball-container:hover {
+    white-space: nowrap;
+  }
+  
+  .selector {
+    display: grid;
+    grid-template-areas:
+      'happy lovers'
+      'pick  pick';
+  }
+  
+  /* the cards and toggle buttons are actually fat labels that can be clicked to set radio buttons */
+  label {
+    display: block;
     cursor: pointer;
-    animation-play-state: running;
-}
-
-.upper-half-ball {
-    position: absolute;
-    width: 100%;
-    height: 42%;
-    background-color: var(--main-bg-color);
-}
-
-.bottom-half-ball {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 42%;
-    background-color: var(--secondary-bg-color);
-}
-
-.center-ball {
-    background-color: white;
-    width: 20%;
-    height: 20%;
-    border: 2px solid black;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.center-line {
-    background: black;
-    height: 100%;
-    width: 100%;
-}
-
-input {
-    text-align: center;
-    height: 40px;
-    border-radius: 4px;
-    margin-right: 10px;
-}
-
-/* poke-dex */
-#pokedex {
-    height: 550px;
-    min-height: 550px;
-    max-height: 550px;
-    width: 100%;
-    display: flex;
-    border-radius: 10px;
-}
-
-@media only screen and (max-width: 600px) {
-    #pokedex {
-        width: 90%;
+  }
+  
+  .happy-card, .lovers-card {
+    position: relative; /* for iOS */
+    width: 250px;
+    padding: 20px;
+    color: #586875;
+    background-color: #f4f7f7;
+    box-shadow: 0 10px 20px #0006;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out; /* important to use a symmetrical timing function (linear also works) */
+    animation-fill-mode: forwards;
+  }
+  
+  .happy-card {
+    grid-area: happy;
+    margin-right: -10px; /* nudge closer to lover's card */
+    
+    /* these values are used to animate via translateX */
+    --swing: -25px;
+    --overlap: 25px;
+  }
+  
+  .lovers-card {
+    grid-area: lovers;
+    margin-left: -10px; /* nudge closer to happy card */
+  
+    /* these values are used to animate via translateX */
+    --swing: 25px;
+    --overlap: -25px;
+  }
+  
+  /* when a radio button is set, swing the corresponding card fowards */
+  #happy-radio:checked ~ .selector .happy-card,
+  #lovers-radio:checked ~ .selector .lovers-card {
+    animation-name: swing-forwards;
+  }
+  
+  @keyframes swing-forwards {
+    0% {
+      z-index: 1; /* start behind other card */
+      transform: scale(0.9);
     }
-}
-
-/* LEFT PANEL */
-#left-panel {
-    background-image: linear-gradient(to bottom, var(--app-accent-color), var(--app-accent-color-darker));
-    box-sizing: border-box;
-    height: 100%;
-    width: 50%;
-    display: grid;
-    grid-template-rows: 17% 42% 21% 20%;
-    border: solid black 3px;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-    border-top-right-radius: 7px;
-}
-
-/* Top Lights */
-
-.lights-container {
-    position: relative;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-}
-
-.left-svg {
-    position: absolute;
-    z-index: +5;
-}
-
-.big-light-boarder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 5px;
-    height: 60px;
-    width: 60px;
-    border: solid black;
-    border-radius: 50%;
-    background-color: white;
-}
-
-.big-light {
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    border: solid black;
-}
-
-.big-dot {
-    height: 15px;
-    width: 15px;
-    position: relative;
-    top: 7px;
-    left: 10px;
-    border-radius: 50%;
-}
-
-.small-lights-container {
-    margin-left: 15px;
-    margin-top: 10px;
-    width: 70px;
-    height: 100%;
-    display: flex;
-    align-self: start;
-    justify-content: space-around;
-}
-
-.small-light {
-    border: solid black;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-}
-
-.dot {
-    height: 5px;
-    width: 5px;
-    position: relative;
-    top: 3px;
-    left: 3px;
-    border-radius: 50%;
-}
-
-/* Center Screen */
-
-.screen-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.screen {
-    width: 150px;
-    height: 150px;
-    border: solid black;
-    border-radius: 0 0 0 17%;
-    display: grid;
-    grid-template-rows: 10% 72% 18%;
-    background-color: white;
-}
-
-.top-screen-lights {
-    width: 50%;
-    margin-top: 2px;
-    display: flex;
-    justify-self: center;
-    justify-content: center;
-    align-items: center;
-}
-
-.mini-light {
-    border: solid black 1px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    margin-right: 7px;
-}
-
-#main-screen {
-    height: 100%;
-    width: 80%;
-    justify-self: center;
-    background-color: var(--main-screen-bg-color);
-    border: solid black 2px;
-    border-radius: 5%;
-   
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.bottom-screen-lights {
-    display: flex;
-    margin-top: 5px;
-    width: 75%;
-    justify-self: center;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.bottom-screen-lights .small-light {
-    border: solid black 2px;
-    width: 12px;
-    height: 12px;
-}
-
-.bottom-screen-lights .dot {
-    height: 4px;
-    width: 4px;
-    top: 2.5px;
-    left: 2px;
-}
-
-.line {
-    width: 18px;
-    height: 2px;
-    background-color: black;
-    margin-top: 2px;
-}
-
-/*Bottom buttons  */
-
-.buttons-container {
-    display: grid;
-    grid-template-rows: 40% 60%;
-    border-bottom-left-radius: 6px;
-}
-
-.big-button {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    border: solid 2px black;
-    background-color: var(--main-buttons-color);
-    margin-left: 7px;
-}
-
-.long-button {
-    width: 35px;
-    height: 2px;
-    border-radius: 50px;
-    border: 2px solid black;
-}
-
-.green-screen {
-    width: 80px;
-    height: 30px;
-    border-radius: 5px;
-    border: solid black 2px;
-    background-color: #3ab47d;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#name-screen {
-    width: 100%;
-    font-family: 'Press Start 2P', cursive;
+    50% {
+      transform: translateX(var(--swing));
+    }
+    100% {
+      z-index: 2; /* end in front of other card */
+      transform: translateX(var(--overlap)) scale(1.1);
+    }
+  }
+  
+  /* when a radio button is set, swing the opposite card backwards */
+  #happy-radio:checked ~ .selector .lovers-card,
+  #lovers-radio:checked ~ .selector .happy-card {
+    animation-name: swing-backwards;
+  }
+  
+  @keyframes swing-backwards {
+    0% {
+      z-index: 2;  /* start in front of other card */
+      transform: translateX(var(--overlap)) scale(1.1);
+    }
+    50% {
+      transform: translateX(var(--swing));
+    }
+    100% {
+      z-index: 1; /* end behind other card */
+      transform: scale(0.9);
+    }
+  }
+  
+  h1 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #bdd6d2;
+    font-size: 1.5rem;
+  }
+  
+  ul {
+    margin: 15px 0;
+    padding-left: 30px;
+    line-height: 1.5rem;
+    list-style-type: square;
+  }
+  
+  p {
+    margin: 0 -20px -20px;
+    padding: 15px;
+    background-color: #bdd6d2;
+    font-weight: bold;
     text-align: center;
-    font-size: 8.5px;
-    overflow-wrap: break-word;
-}
-
-.circle {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    border: 1px solid black;
-}
-
-.upper-buttons-container {
-    display: flex;
-    align-items: top;
-    justify-content: start;
-}
-
-.long-buttons-container {
-    display: flex;
-    width: 100px;
-    justify-content: space-around;
-    margin-left: 7px;
-}
-
-.nav-buttons-container {
-    display: grid;
-    grid-template-columns: 27% 35% 38%;
-}
-
-.dots-container {
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-self: center;
-    justify-content: space-between;
-    font-size: x-large;
-}
-
-.right-nav-container {
-    position: relative;
-    top: -30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-button {
-    height: 52px;
-    width: 52px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-button-vertical {
-    position: absolute;
-    transform: rotate(90deg);
-    background-color: var(--main-buttons-color);
-    border-radius: 5px;
-    height: 12px;
-    width: 52px;
-    border: 2px solid black;
-}
-
-.nav-button-horizontal {
-    position: absolute;
-    background-color: var(--main-buttons-color);
-    border-radius: 5px;
-    height: 12px;
-    width: 52px;
-    border: 2px solid black;
-}
-
-.nav-center-circle {
-    height: 5px;
-    width: 5px;
-    border-radius: 50%;
-    border: solid black 2px;
-    z-index: +2;
-}
-
-.border-top {
-    border-top: 3.5px solid var(--main-buttons-color);
-    position: absolute;
-    top: -3px;
-    left: 20px;
-    right: 19.5px;
-}
-
-.border-bottom {
-    border-top: 3.5px solid var(--main-buttons-color);
-    position: absolute;
-    top: 11px;
-    left: 20px;
-    right: 19.5px;
-}
-
-.bottom-right-nav-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-.bottom-right-nav-container .dots-container {
-    align-items: center;
-    justify-content: center;
-}
-
-.bottom-right-nav-container .small-light {
-    border: solid black 2px;
-    width: 7px;
-    height: 7px;
-    margin-right: 3px;
-    margin-top: 10px;
-}
-
-.bottom-right-nav-container .dot {
-    height: 2.5px;
-    width: 2.5px;
-    top: 1.5px;
-    left: 1.5px;
-}
-
-/* RIGHT PANEL */
-
-#right-panel {
-    background-image: linear-gradient(to bottom, var(--app-accent-color), var(--app-accent-color-darker));
-    box-sizing: border-box;
-    position: relative;
-    width: 50%;
-    display: grid;
-    grid-template-rows: 17% 59% 24%;
-    border-bottom: solid black 3px;
-    border-bottom-right-radius: 10px;
-}
-
-#right-panel::before {
-    content: '';
-    position: absolute;
-    left: -3px;
-    bottom: 0;
-    width: 100%;
-    border-right: solid black 3px;
-    border-bottom-right-radius: 7px;
-}
-
-/* top screen */
-.top-screen-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-right: 3px solid black;
-    overflow: hidden;
-}
-
-.info.top-screen-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-right: none
-}
-
-.right-panel-screen {
-    font-family: 'Press Start 2P', cursive;
-    width: 80%;
-    height: 80%;
-    background-color: var(--secondary-screen-bg-color);
-    border: solid black 2px;
-    border-radius: 4px;
-    font-size: xx-small;
-    padding-left: 2px;
-    padding-right: 2px;
-    // display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-    padding-left: 8px;
-    line-height: 2;
-}
-
-// .evoScreen {
-//     overflow: auto;
-//     font-family: 'Press Start 2P', cursive;
-//     width: 80%;
-//     height: 80%;
-//     padding: 16px;
-//     background-color: var(--secondary-screen-bg-color);
-//     border: solid black 2px;
-//     border-radius: 4px;
-//     font-size: xx-small;
-//     padding-left: 2px;
-//     padding-right: 2px;
-//     // display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     text-align: left;
-//     padding-left: 8px;
-//     line-height: 2;
-// }
-
-/* square buttons grid */
-.square-buttons-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.blue-squares-container {
-    width: 146px;
-    height: 60px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-}
-
-.blue-square {
-    border-radius: 2px;
-    border: black 1.5px solid;
-    background-color: var(--square-buttons-color);
-    box-shadow: inset -2px -2px #3298cb;
-}
-
-/* center buttons */
-.center-buttons-container {
-    display: flex;
-    justify-content: space-around;
-
-}
-
-.center-left-container {
-    display: grid;
-}
-
-.small-reds-container {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-}
-
-.small-reds-container .small-light {
-    border: solid black 2px;
-    width: 7px;
-    height: 7px;
+  }
+  
+  .happy-pick, .lovers-pick {
+    grid-area: pick;
+    margin: 50px auto 0;
+    padding: 15px;
+    border: 1px solid #f4f7f7;
+    border-radius: 9999px;
+    background-color: #b46d73;
+    font-size: 1.25rem;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .happy-pick::before, .lovers-pick::after {
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: bold;
+  }
+  
+  .happy-pick::before {
     margin-right: 10px;
-    margin-top: 10px;
-}
-
-.small-reds-container .dot {
-    height: 2.5px;
-    width: 2.5px;
-    top: 1px;
-    left: 1px;
-}
-
-.white-squares-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.white-square {
-    width: 25px;
-    height: 25px;
-    border-radius: 5px;
-    border: black 2px solid;
-    background-color: #ffffff;
-    box-shadow: inset -2px -2px gray;
-}
-
-.center-right-container {
-    display: grid;
-}
-
-.thin-buttons-container {
-    display: flex;
-    justify-content: space-between;
-}
-
-.thin-button {
-    width: 35px;
-    height: 2px;
-    border: 2px solid black;
-    background-color: var(--main-buttons-color);
+    content: '\f0a8'; /* fa-arrow-circle-left */
+  }
+  
+  .lovers-pick::after {
     margin-left: 10px;
-}
-
-.yellow-button {
-    justify-self: end;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    border: solid 2px black;
-    margin-left: 7px;
-}
-
-.yellow-button .big-dot {
-    height: 7px;
-    width: 7px;
-    position: relative;
-    top: 3px;
-    left: 5px;
-    border-radius: 50%;
-}
-
-/* bottom screens */
-
-.bottom-screens-container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-right: 3px solid black;
-    border-bottom-right-radius: 6px;
-}
-
-.bottom-screens-container .right-panel-screen {
-    width: 64px;
-    height: 25px;
-}
-
-.mention {
-    margin-top: 10px;
-    width: 150px;
-    display: grid;
-    text-align: center;
-    font-size: x-large;
-}
-
-.links {
-    display: flex;
-    justify-content: space-between;
-}
-
-.link-logo {
-    width: 25px;
-    height: 25px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.codepen {
-    background-image: url(https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Large.png);
-}
-
-.github {
-    background-image: url(https://cdn-icons-png.flaticon.com/512/733/733609.png);
-}
-
-.dev {
-    background-image: url(https://raw.githubusercontent.com/gist/benhalpern/eff81b17359acafd17849146549b9291/raw/6de3cc24798bd3b133d4d89a1d87004c369eac46/dev-icon.svg);
-}
-
-.linkedin {
-    background-image: url(https://cdn-icons-png.flaticon.com/512/61/61109.png);
-}
-
-
-
-
-.pokedeSVGContainer{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-}
-
-.pokedexContainer{
-    width: 100%;
-    height: 100%;
-}
-
-.pokemonDataContainer{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-}
-
-.pokemonImageContainer{
-    width: 82px;
-    height: 104px;
-    position: relative;
-    top: 198px;
-    left: 41px;
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.evoScreen {
-    position: relative;
-    top: 58px;
-    left: 197px;
-    width: 141px;
-    height: 211px;
-    overflow: auto;
-    font-family: 'Press Start 2P', cursive;
-    padding: 16px;
-    border-radius: 4px;
-    font-size: xx-small;
-    padding-left: 2px;
-    padding-right: 2px;
-    // display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: left;
-    padding-left: 8px;
-    line-height: 2;
-}
+    content: '\f0a9'; /* fa-arrow-circle-right */
+  }
+  
+  /* hide happy toggle button if happy is currently selected */
+  #happy-radio:checked ~ .selector .happy-pick {
+    display: none;
+  }
+  
+  /* hide lover's toggle button if lover's is currently selected */
+  #lovers-radio:checked ~ .selector .lovers-pick {
+    display: none;
+  }
+  
+  /* increase overlap and swing distance on smaller screens */
+  @media (max-width: 560px) {
+    .happy-card {
+      margin-right: -85px;
+      --swing: -100px;
+    }
+  
+    .lovers-card {
+      margin-left: -85px;
+      --swing: 100px;
+    }
+  }

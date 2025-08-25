@@ -127,7 +127,9 @@
     position: relative;
     color: var(--app-accent3-color);
 }
-
+.pokecardContainer{
+    display: flex;
+}
 .filterBtn {
     background-image: linear-gradient(to bottom, var(--app-accent-color), var(--app-accent-color-darker));
     padding: 8px;

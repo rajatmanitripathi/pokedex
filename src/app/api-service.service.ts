@@ -15,8 +15,11 @@ import pako from 'pako';
 
 @Injectable()
 export class ApiServiceService {
+
   expiryDuration:number = 432000; //5 days
   pokemon: BehaviorSubject<Pokemon | null> = new BehaviorSubject<Pokemon | null>(null);
+  
+
   constructor(private httpClient: HttpClient, private loaderService: SpinnerLoaderService) {
 
   }
@@ -31,6 +34,7 @@ export class ApiServiceService {
       }
       else {
         this.updatePokemonDataListFromApi();
+       
       }
     },
       rej => {
@@ -38,7 +42,7 @@ export class ApiServiceService {
       }).catch(err => {
         this.updatePokemonDataListFromApi();
       });
-
+     console.log(this.pokemon);
     return this.pokemon;
   }
 
@@ -55,8 +59,14 @@ export class ApiServiceService {
 
             const speciesUrl = pokemonData?.species?.url;
             const speciesData = await this.getSpeciesData(speciesUrl).toPromise();
-
             pokemon.pokemonData.specieData = speciesData;
+           if(speciesData?.evolution_chain.url){
+            const evoChainUrl=speciesData?.evolution_chain?.url;
+                const evoChain= await this.getEvoChain(evoChainUrl).toPromise();
+                pokemon.pokemonData.evolutionChain=evoChain;
+              
+           }
+           
           }
         });
 

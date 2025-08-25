@@ -1,3 +1,5 @@
+import { evolutionChain } from "./evoltionChain";
+
 export type Pokemon = {
   count: number;
   next: any;
@@ -10,9 +12,19 @@ export type PokemonInfo = {
   url: string;
   pokemonData?: PokemonDetails;
 };
+export type PokeMonElasticDetail={
+  pokemonData?: PokemonDetails[];
+  totalDocs:number;
+}
+export type PokemonHistoryDetails={
+  searchedField:string,
+  timestamp:Date
+}
 export type PokemonDetails = {
+  
   specieData?: specieDetails;
   species: species;
+  evolutionChain:evolutionChain|undefined;
   abilities: Array<{
     ability: {
       name: string;
