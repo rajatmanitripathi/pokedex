@@ -1,8 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PokemonDetails, PokeMonElasticDetail, PokemonHistoryDetails } from '../models/pokemonAPIModels';
-import VanillaTilt from 'vanilla-tilt';
-import { ApiServiceService } from '../api-service.service';
+import {
+  PokemonDetails,
+  PokeMonElasticDetail,
+  PokemonHistoryDetails,
+} from '../models/pokemonAPIModels';
 import { ElasticService } from '../elastic.service';
 import { chain } from '../models/evoltionChain';
 import { v4 as uuidv4 } from 'uuid';
@@ -14,22 +16,25 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class CardOverviewComponent {
   tiltable: any;
-  isDetailedCard: boolean = false;
-  selectedEvo!: PokemonDetails | undefined
+  angle: number = 0;
+  isDetailedCard: boolean = true;
+  selectedEvo!: PokemonDetails | undefined;
   flipDirection!: 'flippedfrRight' | 'flippedfrLeft';
-  isFlipped!: boolean
-
+  isFlipped!: boolean;
+  behindPokeData: PokemonDetails | undefined = undefined;
   visited: boolean = false;
-  evoNextPrev!: { next: PokemonDetails[], prev: PokemonDetails | undefined };
+  frontFlipped: boolean = false;
+  evoNextPrev: { next: PokemonDetails[]; prev: PokemonDetails | undefined } = {
+    next: [],
+    prev: undefined,
+  };
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      pokemonData: PokemonDetails;
+      pokemonData: PokemonDetails | undefined;
     },
-    private elasticService: ElasticService,
-  ) {
-
-  }
+    private elasticService: ElasticService
+  ) {}
   ngOnInit(): void {
     if (this.data.pokemonData?.evolutionChain?.chain) {
       this.updateNextPrevPokemonFromEvoChain(
@@ -39,12 +44,19 @@ export class CardOverviewComponent {
     }
     console.log(this.evoNextPrev.prev);
     console.log('debugging pokemon data');
-    // console.log(this.pokemonData);
   }
-  showMore(
-    selectedEvo: PokemonDetails,
-    direction: 'flippedfrRight' | 'flippedfrLeft'
-  ) {
+  flipRight() {
+    this.angle += 180;
+  }
+
+  flipLeft() {
+    this.angle -= 180;
+  }
+  showMore(selectedEvo: PokemonDetails) {
+    setTimeout(() => {
+      this.behindPokeData = { ...selectedEvo };
+      this.data.pokemonData = { ...selectedEvo };
+    }, 200);
     if (selectedEvo.evolutionChain?.chain) {
       this.evoNextPrev.next = [];
       this.evoNextPrev.prev = undefined;
@@ -53,8 +65,6 @@ export class CardOverviewComponent {
         selectedEvo.evolutionChain.chain
       );
     }
-    this.isFlipped = !this.isFlipped;
-    this.flipDirection = direction;
   }
   updateNextPrevPokemonFromEvoChain(
     pokeName: string,

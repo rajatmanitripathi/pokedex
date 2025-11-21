@@ -1,62 +1,67 @@
 <div class="pop_evoclass">
-  <div class="evo-container" *ngIf="evoNextPrev.prev!=undefined && isDetailedCard">
-  <div class="avatar" (click)="showMore(evoNextPrev.prev,'flippedfrLeft')">
-  <img
-          class="headerImage"
-          [src]="
-            evoNextPrev.prev &&
-            evoNextPrev.prev &&
-            evoNextPrev.prev.sprites &&
-            evoNextPrev.prev.sprites.other &&
-            evoNextPrev.prev.sprites.other['showdown'] &&
-            evoNextPrev.prev.sprites.other['showdown'].front_default
-              ? evoNextPrev.prev.sprites.other['showdown'].front_default
-              : ''
-          "
-          [alt]="'Avataar_Prev'"
-        />
-</div>
-</div>
-    <div 
-  class="card-inner"
-  [ngClass]="{
-    'flippedfrRight': isFlipped && flipDirection === 'flippedfrRight',
-    'flippedfrLeft': isFlipped && flipDirection === 'flippedfrLeft'
-  }"
->
-  <div class="card-front">
-    <app-pokemon-card
-      [pokemonData]="data.pokemonData"
-      [isDetailedCard]="true"
-      [evoNextPrev]="evoNextPrev"
-      [isdialogueBoxOpen]="true"
-    ></app-pokemon-card>
+  <div
+    class="evo-container"
+    *ngIf="evoNextPrev.prev != undefined && isDetailedCard"
+  >
+    <div class="avatar" (click)="showMore(evoNextPrev.prev)" (click)="flipLeft()">
+      <img
+        class="headerImage"
+        [src]="
+          evoNextPrev.prev &&
+          evoNextPrev.prev &&
+          evoNextPrev.prev.sprites &&
+          evoNextPrev.prev.sprites.other &&
+          evoNextPrev.prev.sprites.other['showdown'] &&
+          evoNextPrev.prev.sprites.other['showdown'].front_default
+            ? evoNextPrev.prev.sprites.other['showdown'].front_default
+            : ''
+        "
+        [alt]="'Avataar_Prev'"
+      />
+    </div>
   </div>
-  <div class="card-back">
-    <app-pokemon-card
-      [pokemonData]="data.pokemonData"
-      [isDetailedCard]="true"
-      [evoNextPrev]="evoNextPrev"
-      [isdialogueBoxOpen]="true"
-    ></app-pokemon-card>
-  </div>
+  <div
+    class="card-inner"
+   [style.transform]="'rotateY(' + angle + 'deg)'"
+  >
+     <div class="card-front">
+      <app-pokemon-card
+        [pokemonData]="data.pokemonData"
+        [isDetailedCard]="true"
+        [evoNextPrev]="evoNextPrev"
+        [isdialogueBoxOpen]="true"
+      ></app-pokemon-card>
+    </div>
+    <div class="card-back">
+      <app-pokemon-card
+        [pokemonData]="behindPokeData"
+        [isDetailedCard]="true"
+        [evoNextPrev]="evoNextPrev"
+        [isdialogueBoxOpen]="true"
+      ></app-pokemon-card>
+    </div>
   </div>
   <div class="evo-container" *ngIf="isDetailedCard">
-  <div class="avatar"  *ngFor="let pokemonData of evoNextPrev.next" (click)="showMore(pokemonData,'flippedfrRight')">
-  <img
-          class="headerImage"
-          [src]="
-            pokemonData &&
-            pokemonData &&
-            pokemonData.sprites &&
-            pokemonData.sprites.other &&
-            pokemonData.sprites.other['showdown'] &&
-            pokemonData.sprites.other['showdown'].front_default
-              ? pokemonData.sprites.other['showdown'].front_default
-              : ''
-          "
-          [alt]="'Avataar_Next'"
-        />
-</div>
-</div>
+    <div
+      class="avatar"
+      *ngFor="let pokemonData of evoNextPrev.next"
+      (click)="showMore(pokemonData)"
+      (click)="flipRight()"
+    >
+      <img
+        class="headerImage"
+        [src]="
+          pokemonData &&
+          pokemonData &&
+          pokemonData.sprites &&
+          pokemonData.sprites.other &&
+          pokemonData.sprites.other['showdown'] &&
+          pokemonData.sprites.other['showdown'].front_default
+            ? pokemonData.sprites.other['showdown'].front_default
+            : ''
+        "
+        [alt]="'Avataar_Next'"
+      />
+    </div>
+  </div>
 </div>

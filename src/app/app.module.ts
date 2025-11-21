@@ -16,12 +16,13 @@ import { HeaderComponent } from './header/header.component';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CardOverviewComponent } from './card-overview/card-overview.component';
+import { WtpComponent } from './wtp/wtp.component';
 // import { AvataarComponent } from './avataar/avataar.component';
 
 
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, WtpComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

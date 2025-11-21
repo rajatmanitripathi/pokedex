@@ -290,6 +290,8 @@
 ::ng-deep .no-container .mat-mdc-dialog-container .mat-mdc-dialog-surface  {
   background: transparent !important; // Remove white background
   width: 100%;
+  max-width: 560px;
+  padding: 0 !important;
 }
 
 // shuffle css from here

@@ -58,8 +58,9 @@ export class PokemonCardComponent implements  AfterViewInit {
     this.dialog.open(CardOverviewComponent, {
       data: { pokemonData: this.pokemonData, isdialogueBoxOpen: false },
       panelClass: 'no-container',
+       maxWidth: '500vw',
       height: '100vh',
-      width: '100vw',
+      width: '500vw',
     });
   }
   
