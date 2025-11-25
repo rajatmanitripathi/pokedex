@@ -68,6 +68,18 @@
 // 	min-height: 100vh;
 // 	background: #111;
 // }
+@font-face {
+  font-family: 'MyFont';
+  src: url('/assets/fonts/batmfa__.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'durden';
+  src: url('/assets/fonts/TylerDurden.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 body {
   margin: 0px;
   padding: 10px;
@@ -78,7 +90,6 @@ body {
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
-
 }
 
 body::before {

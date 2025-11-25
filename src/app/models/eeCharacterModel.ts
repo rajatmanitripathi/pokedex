@@ -6,5 +6,6 @@
     voiceUrl:String,
     themeSongUrl:String,
     bio:String,
+    bgImage:String,
     guessableCharaters:String[]
   }

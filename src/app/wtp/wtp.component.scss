@@ -1,13 +1,38 @@
 .background-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  padding: 20px;
-  box-sizing: border-box;
-  background-color: rgb(160, 39, 39);
+  // align-items: center;
+  // justify-content: center;
+}
+
+.background-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/images/redbg.avif");
+  background-size: cover;
+  background-position: center;
+  opacity: 1;
+  transition: opacity 2.5s linear;
+  z-index: -1;
+}
+.background-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--api-bg);
+  background-position: center;
+  opacity: 1;
+  z-index: -2;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.background-container.transparent::before {
+  opacity: 0.1;
 }
 
 .img_placements {
@@ -19,13 +44,11 @@
   align-items: center;
 }
 
-
 .bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 
 .overlay-image-1 {
   position: absolute;
@@ -35,14 +58,13 @@
 
 .overlay-image {
   position: absolute;
-  width: 50%;
+  width: 35%;
   height: auto;
 }
 
 .darken {
   filter: brightness(0.1);
 }
-
 
 .overlay-image-3 {
   position: absolute;
@@ -52,13 +74,61 @@
  left: 76%;
  rotate: -20deg;
 }
+.overlay-image-3.disappear{
+  z-index: -2;
+}
+.font{
+  position: absolute;
+  font-family: "MyFont", sans-serif;
+  font-size: 10%;
+  position: absolute;
+  top: 65%;
+  left: 41%;
+  rotate: -20deg;
+  z-index: -2;
+  font-size: 169%;
+}
+.font.appear{
+  z-index: 2;
+}
+.bioTypewrited{
+  display: flex;
+  position: absolute;
+  font-family: durden, sans-serif;
+  font-size: 5%;
+  top: 10%;
+  left: 60%;
+  z-index: -2;
+  // overflow: hidden;
+  // white-space: nowrap;
+  border-right: 2px solid #fff;
+  font-size: 70%;
+  animation: typing 3s steps(30), blink .6s infinite step-end alternate;
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
 
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+.bioTypewrited.appear{
+  z-index: 2;
+}
 .guessable-option {
   width: 30%;
   display: flex;
+  position: absolute;
+  top: 32%;
+  left: 70%;
   flex-direction: column;
   gap: 15px;
   align-items: flex-start;
+
+}
+.guessable-option.disappear {
+  z-index: -2;
 }
 
 .option {
@@ -69,7 +139,23 @@
   font-weight: bold;
   text-align: center;
   transition: 0.2s;
-  width: 100%;
+  width: 50%;
+  height: 10%;
+  left: 37%;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+}
+.startButton{
+  position: absolute;
+  background: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+  width: 30%;
+  height: 10%;
+  left: 36%;
+  top: 44%;
   box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
 }
 

@@ -18,6 +18,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CardOverviewComponent } from './card-overview/card-overview.component';
 import { WtpComponent } from './wtp/wtp.component';
 // import { AvataarComponent } from './avataar/avataar.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -32,6 +33,7 @@ import { WtpComponent } from './wtp/wtp.component';
     MatInputModule,
     AvatarModule,
     AvatarGroupModule,
+    MatTabsModule
   ],
   providers: [ApiServiceService, provideHttpClient(), provideAnimations()],
   bootstrap: [AppComponent],
