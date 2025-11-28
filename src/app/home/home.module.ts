@@ -25,6 +25,7 @@ import { AvatarModule } from 'primeng/avatar';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import { CardOverviewComponent } from '../card-overview/card-overview.component';
+import { WtpComponent } from '../wtp/wtp.component';
 const routes: Routes = [
   {"path":"",
    "component":HomeComponent,
@@ -37,7 +38,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent, EvolutionChainComponent,CardOverviewComponent],
+  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent, EvolutionChainComponent,CardOverviewComponent,WtpComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

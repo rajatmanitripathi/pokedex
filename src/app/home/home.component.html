@@ -1,3 +1,13 @@
+<div [ngClass]="{ 'show-nav': showNav }">
+<div class="overlay"></div>
+  <nav class="nav">
+    <div class="toggle" (click)="toggleWhosthatpokemonDrawer()">
+      <span class="toggler" (click)="toggleWhosthatpokemonDrawer()">{{arrow}}</span>
+    </div>
+     <app-wtp></app-wtp>
+  </nav>
+
+
 <div class="homeContainer">
   <div class="leftV">
     <app-pokemon-details></app-pokemon-details>
@@ -106,5 +116,5 @@
   
   
 </div>
-
+</div>
 <app-pokeball-spinner></app-pokeball-spinner>

@@ -24,7 +24,7 @@
     class="card-inner"
    [style.transform]="'rotateY(' + angle + 'deg)'"
   >
-     <div class="card-front">
+     <div class="card-front" *ngIf="!isFlipped">
       <app-pokemon-card
         [pokemonData]="data.pokemonData"
         [isDetailedCard]="true"

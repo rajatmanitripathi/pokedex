@@ -16,6 +16,7 @@ import VanillaTilt from 'vanilla-tilt';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  showNav: boolean = false;
   viewPokeData!: PokemonDetails[] | undefined;
   totalPokeDocs!: number;
   filteredOptions: Observable<string[]> = of([]);
@@ -28,7 +29,8 @@ export class HomeComponent implements OnInit {
   filterElement!: MatSelect;
   typeIconMapping: { [key: string]: string } = typeIconMapping;
   typeIconMappingList: string[] = Object.keys(typeIconMapping);
-  flag:boolean=false;
+  flag: boolean = false;
+  arrow: String = "\u00BB";
   tiltable: any;
   @ViewChild('pokemonFilter') set content(content: MatSelect) {
     if (content) {
@@ -45,8 +47,8 @@ export class HomeComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((value) => this.filterPokeByNameAndType(value || '', this.selectionList))
     );
-    const uuidForThisPort=this.getOrCreateUserId();
-    this.elasticService.getPaginatedPokeList(this.currentPage,this.pageSize,this.selectionList,(this.searchControl.value || '').toLowerCase(),uuidForThisPort)
+    const uuidForThisPort = this.getOrCreateUserId();
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort)
       .subscribe((pokeData) => {
         this.viewPokeData = pokeData.pokemonData;
         this.totalPokeDocs = pokeData.totalDocs;
@@ -59,73 +61,83 @@ export class HomeComponent implements OnInit {
       const lastPart = parts.pop();
       return lastPart?.split(';').shift() || null;
     }
-  
+
     return null;
   }
-  
-   getOrCreateUserId() {
-  let userId = this.getCookie('userId');
-  
-  if (!userId) {
-    userId = uuidv4();
-    document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict;`;
-    console.log('Generated and stored new userId:', userId);
-  } else {
-    console.log('Existing userId found:', userId);
+  toggleWhosthatpokemonDrawer() {
+    this.showNav = !this.showNav;
+    if (this.showNav == false) {
+      this.arrow = "\u00BB";
+      
+    }
+    else {
+      this.arrow = "\u00AB";
+    }
+
   }
-  
-  return userId;
-}
+  getOrCreateUserId() {
+    let userId = this.getCookie('userId');
+
+    if (!userId) {
+      userId = uuidv4();
+      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict;`;
+      console.log('Generated and stored new userId:', userId);
+    } else {
+      console.log('Existing userId found:', userId);
+    }
+
+    return userId;
+  }
   private filterPokeByNameAndType(value: string, selectedFilterList: string[]): Observable<string[]> {
-    const uuidForThisPort=this.getOrCreateUserId();
+    const uuidForThisPort = this.getOrCreateUserId();
     const filterValue = value.toLowerCase();
     if (this.flag) {
       this.flag = false;
     }
-    return this.elasticService.findFamiliar(filterValue, this.pageSize, uuidForThisPort,false).pipe(
+    return this.elasticService.findFamiliar(filterValue, this.pageSize, uuidForThisPort, false).pipe(
       map((filteredRes: PokeMonElasticDetail | PokemonHistoryDetails[] | null) => {
         if (filteredRes === null) {
           // Handle null case
           return [];
         }
-    
+
         if ('pokemonData' in filteredRes && filteredRes.pokemonData) {
           // Handle PokeMonElasticDetail type
           return filteredRes.pokemonData.map((doc) => doc.name);
-        } 
-        
+        }
+
         if (Array.isArray(filteredRes) && filteredRes.every(item => 'searchedField' in item && 'timestamp' in item)) {
           // Handle array of PokemonHistoryDetails
           return filteredRes.map((hist) => hist.searchedField);
         }
-    
+
         // Default to an empty array if none of the conditions match
         return [];
       })
     );
-    
+
   }
 
 
   onPageChange(event: any): void {
     this.currentPage = event.pageIndex;
     this.pageSize = event.pageSize;
-    const uuidForThisPort=this.getOrCreateUserId();
-   
-    this.elasticService.getPaginatedPokeList(this.currentPage,this.pageSize,this.selectionList, (this.searchControl.value || '').toLowerCase(),uuidForThisPort)
-    .subscribe((pokeData) => {
-      this.viewPokeData = pokeData.pokemonData;
-      this.totalPokeDocs = pokeData.totalDocs;
-    });
-   
-    
+    const uuidForThisPort = this.getOrCreateUserId();
+
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort)
+      .subscribe((pokeData) => {
+        this.viewPokeData = pokeData.pokemonData;
+        this.totalPokeDocs = pokeData.totalDocs;
+      });
+
+
   }
 
   onFilterChange(event: MatSelectChange): void {
     this.selectionList = event.value;
     this.currentPage = 0; // Reset to the first page when the filter changes
-    const uuidForThisPort=this.getOrCreateUserId();
-    this.elasticService.getPaginatedPokeList(this.currentPage,this.pageSize,this.selectionList,(this.searchControl.value || '').toLowerCase(),uuidForThisPort)
+    const uuidForThisPort = this.getOrCreateUserId();
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort)
       .subscribe((pokeData) => {
         this.viewPokeData = pokeData.pokemonData;
         this.totalPokeDocs = pokeData.totalDocs;
@@ -136,13 +148,13 @@ export class HomeComponent implements OnInit {
     this.filterElement.toggle();
   }
 
-  onEnter(filterValue: string|null): void {
-    this.flag=!this.flag;
+  onEnter(filterValue: string | null): void {
+    this.flag = !this.flag;
     // if (!filterValue.trim()) {
     //   return;
     // }
-    const uuidForThisPort=this.getOrCreateUserId();
-    this.elasticService.getPaginatedPokeList(this.currentPage,this.pageSize,this.selectionList,(this.searchControl.value || '').toLowerCase(),uuidForThisPort).pipe(
+    const uuidForThisPort = this.getOrCreateUserId();
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort).pipe(
       map((filteredRes) => filteredRes)
     ).subscribe((filteredRes) => {
       this.viewPokeData = filteredRes.pokemonData;

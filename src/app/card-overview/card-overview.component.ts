@@ -20,7 +20,7 @@ export class CardOverviewComponent {
   isDetailedCard: boolean = true;
   selectedEvo!: PokemonDetails | undefined;
   flipDirection!: 'flippedfrRight' | 'flippedfrLeft';
-  isFlipped!: boolean;
+  isFlipped: boolean=false;
   behindPokeData: PokemonDetails | undefined = undefined;
   visited: boolean = false;
   frontFlipped: boolean = false;
@@ -34,7 +34,7 @@ export class CardOverviewComponent {
       pokemonData: PokemonDetails | undefined;
     },
     private elasticService: ElasticService
-  ) {}
+  ) { }
   ngOnInit(): void {
     if (this.data.pokemonData?.evolutionChain?.chain) {
       this.updateNextPrevPokemonFromEvoChain(
@@ -46,10 +46,17 @@ export class CardOverviewComponent {
     console.log('debugging pokemon data');
   }
   flipRight() {
+    setTimeout(()=>{
+      this.isFlipped=!this.isFlipped;
+    },200)
+    
     this.angle += 180;
   }
 
   flipLeft() {
+   setTimeout(()=>{
+      this.isFlipped=!this.isFlipped;
+    },200)
     this.angle -= 180;
   }
   showMore(selectedEvo: PokemonDetails) {
@@ -72,18 +79,17 @@ export class CardOverviewComponent {
     parent: chain | null = null
   ): void {
     if (pokeName === evoChain.species.name) {
-      this.visited = true;
       this.checkInChain(evoChain, parent);
       return;
     }
     if (evoChain.evolves_to.length == 0) {
-      this.checkInChain(evoChain, parent);
       return;
     }
 
     for (let next of evoChain.evolves_to) {
       this.updateNextPrevPokemonFromEvoChain(pokeName, next, evoChain);
-      if (this.visited) return;
+      if (evoChain.evolves_to.length==0) return;
+
     }
   }
   getCookie(name: string): string | null {
@@ -110,7 +116,6 @@ export class CardOverviewComponent {
     return userId;
   }
   checkInChain(chain: chain, parent: chain | null): void {
-    if (this.visited) {
       for (let nextChain of chain.evolves_to) {
         const uuidForThisPort = this.getOrCreateUserId();
         const filterValue = nextChain.species.name.toLowerCase();
@@ -134,7 +139,7 @@ export class CardOverviewComponent {
             }
           );
       }
-    }
+    
 
     if (parent != null) {
       const uuidForThisPort = this.getOrCreateUserId();

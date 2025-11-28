@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import {
   ColourPalette,
   PokemonDetails,
@@ -29,14 +29,17 @@ import { ApiServiceService } from '../api-service.service';
   templateUrl: './pokemon-card.component.html',
   styleUrl: './pokemon-card.component.scss',
 })
-export class PokemonCardComponent implements  AfterViewInit {
+export class PokemonCardComponent {
   @Input() pokemonData!: PokemonDetails | undefined;
   @Input() isDetailedCard: boolean = false;
   @Input() ListOfPokeData!: PokemonDetails[] | undefined;
+  @Input() flippedId!: number;
+  currentId!: number;
   statIconMapping: { [key: string]: string } = statIconMapping;
   typeIconMapping: { [key: string]: string } = typeIconMapping;
   colorPalette: ColourPalette = colorPalette;
   tiltable: any;
+  tiltBack:any;
   @Input() evoNextPrev: { next: PokemonDetails[]; prev: PokemonDetails | undefined } = {
     next: [],
     prev: undefined,
@@ -93,24 +96,35 @@ export class PokemonCardComponent implements  AfterViewInit {
 
     return userId;
   }
-  ngAfterViewInit() {
-    this.tiltable = document.querySelector(
-      `.pokeMon_${this.isDetailedCard ? 'detailed_' : ''}` +
-        this.pokemonData?.id
-    );
-    if (this.tiltable) {
-      VanillaTilt.init(this.tiltable as HTMLElement, {
-        max: 20,
-        speed: 500,
-        reverse: true,
-        perspective: 1000,
-        glare: true,
-        gyroscope: true,
-        'max-glare': 1,
-      });
-    }
-  }
- 
+initTilt() {
+  const tiltElements = document.querySelectorAll(
+    `.pokeMon_${this.isDetailedCard ? 'detailed_' : ''}${this.pokemonData?.id}`
+  );
+
+  tiltElements.forEach((el: any) => {
+    const tiltObj = el.vanillaTilt;
+    if (tiltObj) tiltObj.destroy();
+    VanillaTilt.init(el, {
+      max: 20,
+      speed: 500,
+      reverse: true,
+      perspective: 1000,
+      glare: true,
+      gyroscope: true,
+      'max-glare': 1,
+    });
+  });
+}
+
+
+//  ngAfterViewInit() {
+//   this.initTilt();
+// }
+
+ngOnChanges() {
+  setTimeout(() => this.initTilt());
+}
+
   getObjectByName(
     list: PokemonDetails[] | undefined,
     searchText: string
