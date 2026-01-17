@@ -1,12 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../../PokeDex/public/assets/libraries/Treant.css';
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
 :root {
   --app-background: #ffffff;
   --app-accent-color: #e6281d;
   --app-accent-color-lighter: #e8635c;
-  --app-accent--darker: rgb(161, 0, 0);
+  --app-accent-color-darker: #610000;
   --app-accent2-color: #0095F6;
   --app-accent2-color-lighter: #67bdff;
   --app-accent2-color-darker: #247cbf;
+  --app-accent3-color: #ffcc00;
+  --app-accent3-color-lighter: #fff0b4;
+  --app-accent3-color-darker: #7b6200;
   --white-color: #ffffff;
   --string-color: #CE9178;
   --app-error-color: #ff0000;
@@ -40,26 +47,69 @@
   --app-border-radius-m: 6px;
   --app-border-radius-s: 6px;
   --app-border-radius-xs: 6px;
-}
 
+
+
+
+  //pokdex
+  --main-bg-color: var(--app-accent-color);
+  --secondary-bg-color: #f2f2f2;
+  --main-screen-bg-color: #98cb98;
+  --secondary-screen-bg-color: #9e9d9d;
+  --main-buttons-color: #585858;
+  --square-buttons-color: #7ca9f7;
+}
+// * {
+// 	margin: 0;
+// 	padding: 0;
+// 	box-sizing: border-box;
+// }
+// body {
+// 	min-height: 100vh;
+// 	background: #111;
+// }
+@font-face {
+  font-family: 'MyFont';
+  src: url('/assets/fonts/batmfa__.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'durden';
+  src: url('/assets/fonts/TylerDurden.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
 body {
   margin: 0px;
   padding: 10px;
   font-family: var(--app-font-family);
   // background-color: var(--app-background);
-  background-image: url("/assets/images/appBackground.jpg");
+  background-image: url("/assets/images/pokemonBackgroundFiltered.png");
   color: black;
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
+}
 
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  // backdrop-filter: brightness(0.3) blur(6px);
+  pointer-events: none;
+  /* Allows interactions with underlying content */
+  z-index: -1;
 }
 
 body * {
-  margin: 0px;
-  padding: 0px;
+  // margin: 0px;
+  // padding: 0px;
   font-family: var(--app-font-family);
-  color: black;
+  color: #ffcc00;
 
 }
 
@@ -71,7 +121,11 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  overflow: hidden;
+}
+
+input {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 .statIcon {
@@ -87,16 +141,48 @@ body {
   margin-right: 5px !important;
 }
 
-.cdk-overlay-pane {
-  width: 300px !important;
-}
+// .cdk-overlay-pane {
+//   width: 100% !important;
+// }
 
 .mat-mdc-select-panel {
   display: flex;
   flex-wrap: wrap;
+  background: #ffffff00 !important;
+  backdrop-filter: blur(50px);
+  border-radius: 7px !important;
+
+  .mat-mdc-option {
+    * {
+      color: var(--app-accent3-color);
+    }
+
+    .mat-pseudo-checkbox-full {
+      border-color: var(--app-accent3-color);
+    }
+  }
 }
 
-.mat-mdc-option{
+.mat-mdc-option.mdc-list-item--selected {
+  background-color: rgba(26, 27, 31, 0.12) !important;
+
+  .mdc-list-item__primary-text {
+    color: var(--app-accent-color) !important;
+  }
+}
+
+.mat-mdc-autocomplete-panel {
+  background: #ffffff00 !important;
+  backdrop-filter: blur(50px) !important;
+
+  .mat-mdc-option {
+    * {
+      color: var(--app-accent3-color) !important;
+    }
+  }
+}
+
+.mat-mdc-option {
   width: 100%;
 }
 
@@ -125,11 +211,11 @@ body {
   --mdc-outlined-text-field-container-shape: 28px !important;
 }
 
-.mat-mdc-notch-piece.mdc-notched-outline__leading{
+.mat-mdc-notch-piece.mdc-notched-outline__leading {
   border: none;
 }
 
-.mat-mdc-notch-piece.mdc-notched-outline__trailing{
+.mat-mdc-notch-piece.mdc-notched-outline__trailing {
   border: none;
 }
 
@@ -138,37 +224,144 @@ body {
   padding-left: 16px !important;
 }
 
-.mat-mdc-form-field-infix{
+.mat-mdc-form-field-infix {
   padding: 5px !important;
   min-height: 35px !important;
 }
 
-.mat-mdc-form-field.pokemonSearch{
-  width: calc(100% - 68px);
-}
+// .mat-mdc-form-field.pokemonSearch {
+//   width: calc(100% - 68px);
+// }
 
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background-color: #dddddd;
-  border-radius: 10px;
+  background-color: #101215;
 }
- 
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--app-accent-color); 
+  background-color: var(--app-accent-color);
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--app-accent2-color-darker); 
+  background-color: var(--app-accent3-color);
+  cursor: pointer;
 }
 
-.mat-mdc-card-subtitle{
+.mat-mdc-card-subtitle {
   padding: 0px !important;
+}
+
+.mat-mdc-paginator {
+  background: -webkit-linear-gradient(var(--app-accent-color), var(--app-accent-color-darker));
+  border-radius: 7px;
+
+  .mat-mdc-paginator-page-size-label,
+  .mat-mdc-select-min-line,
+  .mat-mdc-paginator-range-label {
+    color: var(--app-accent3-color) !important;
+    font-size: 16px !important;
+
+  }
+
+  .mat-mdc-select-arrow svg {
+    fill: var(--app-accent3-color);
+  }
+
+  .mat-mdc-paginator-icon {
+    fill: var(--app-accent3-color);
+  }
+}
+
+.mat-icon {
+  color: var(--app-accent3-color);
+}
+
+.mat-mdc-paginator-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.cdk-global-overlay-wrapper {
+  backdrop-filter: blur(15px);
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.popupDialog {
+  width: 350px !important;
+  height: 500px;
+  max-width: 350px !important;
+  max-height: 500px !important;
+  min-width: 350px !important;
+  min-height: 500px !important;
+  background: #ffffff00;
+
+  .mat-mdc-dialog-surface.mdc-dialog__surface {
+    background: #ff000000;
+    border-top-right-radius: 10px;
+  }
+}
+
+
+.p-organizationchart .p-organizationchart-node-content {
+  border: none !important;
+  background: #ffffff00 !important;
+  color: #4b5563 !important;
+  padding: 0px !important;
+}
+
+.p-organizationchart-table>tbody>tr>td {
+  padding: 0px !important;
+}
+
+.p-icon-wrapper {
+  display: inline-flex;
+  position: relative;
+  top: -16px;
+}
+
+.flag {
+  width: 70px !important;
+  height: 50px !important;
+  object-fit: contain !important;
+}
+
+.p-2 {
+  font-size: 13px;
+  position: relative;
+  top: -10px;
+}
+
+.p-organizationchart .p-organizationchart-lines :nth-child(1 of .p-organizationchart-line-right) {
+  border-left: 1px solid #e2e8f0;
+  border-top-left-radius: 6px;
+}
+
+.p-organizationchart .p-organizationchart-lines :nth-child(1 of .p-organizationchart-line-left) {
+  border-right: 0 none;
+}
+
+.p-organizationchart .p-organizationchart-lines :nth-last-child(1 of .p-organizationchart-line-left) {
+  border-top-right-radius: 6px;
+}
+
+.p-organizationchart-lines {
+  td {
+    border-color: var(--app-accent3-color) !important;
+
+    div {
+      background: var(--app-accent3-color) !important;
+    }
+  }
+
 }

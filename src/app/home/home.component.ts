@@ -1,168 +1,166 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiServiceService } from '../api-service.service';
-import {
-  ColourPalette,
-  Pokemon,
-  PokemonInfo,
-} from '../models/pokemonAPIModels';
-import { PageEvent } from '@angular/material/paginator';
-import { typeIconMapping } from '../constants/typeConstant';
-import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { ElasticService } from '../elastic.service';
 import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { colorPalette } from '../constants/colorPaletteConstant';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { Observable, of, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, startWith, map } from 'rxjs/operators';
+import { PokemonDetails, PokeMonElasticDetail, PokemonHistoryDetails } from '../models/pokemonAPIModels';
+import { typeIconMapping } from '../constants/typeConstant';
+import { v4 as uuidv4 } from 'uuid';
+import VanillaTilt from 'vanilla-tilt';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  searchControl = new FormControl();
-  recommondations: string[] = [];
+  showNav: boolean = false;
+  viewPokeData!: PokemonDetails[] | undefined;
+  totalPokeDocs!: number;
   filteredOptions: Observable<string[]> = of([]);
-  typeIconMapping: { [key: string]: string } = typeIconMapping;
-  typeIconMappingList: string[] = Object.keys(typeIconMapping);
-  colorPalette: ColourPalette = colorPalette;
-  pokemonList: PokemonInfo[] = [];
-  originalList: PokemonInfo[] = [];
-  pokemon: Pokemon | null = null;
-  offset: number = 0;
-  paginatedList: PokemonInfo[] = [];
+  searchControl = new FormControl();
   paginationCount: number = 0;
   pageSize: number = 12;
-  pageIndex: number = 0;
+  currentPage: number = 0;
+  searchDecouncer: Subject<string> = new Subject();
   selectionList: string[] = [];
   filterElement!: MatSelect;
-  people: Subject<any> = new Subject();
-  searchDecouncer: Subject<string> = new Subject();
-
+  typeIconMapping: { [key: string]: string } = typeIconMapping;
+  typeIconMappingList: string[] = Object.keys(typeIconMapping);
+  flag: boolean = false;
+  arrow: String = "\u00BB";
+  tiltable: any;
   @ViewChild('pokemonFilter') set content(content: MatSelect) {
     if (content) {
       this.filterElement = content;
     }
   }
 
-  constructor(private apiService: ApiServiceService) {}
+  constructor(private elasticService: ElasticService) { }
 
   ngOnInit() {
-    this.apiService.getPokemonDataList().subscribe((res) => {
-      this.pokemon = res;
-      if (this.pokemon?.results) {
-        this.paginationCount = this.pokemon.count;
-        this.pokemonList = this.pokemon?.results;
-        this.originalList = this.pokemon?.results;
-        this.paginatedList = this.pokemonList.slice(
-          this.pageIndex * this.pageSize,
-          (this.pageIndex + 1) * this.pageSize
-        );
-
-        this.recommondations = this.originalList.map((pokemon) => pokemon.name);
-      }
-    });
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
-      map((value) => this._filter(value || ''))
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((value) => this.filterPokeByNameAndType(value || '', this.selectionList))
     );
-    this.setupSearchDebouncer();
-  }
-
-  filterPokemonList(
-    ogList: PokemonInfo[],
-    selectionList: string[]
-  ): PokemonInfo[] {
-    return ogList.filter((pokemon) => {
-      let match = true;
-
-      selectionList.forEach((pokeType) => {
-        if(pokeType=="legendary" && !pokemon.pokemonData?.specieData?.is_legendary){
-          match=false;
-        }
-        if(pokeType=="mythical" && !pokemon.pokemonData?.specieData?.is_mythical){
-          match=false;
-        }
-        if (pokeType != 'legendary' && pokeType != 'mythical') {
-          if (
-            !pokemon.pokemonData?.types
-              .map((obj) => obj.type.name)
-              .includes(pokeType)
-          ) {
-            match = false;
-          }
-        }
+    const uuidForThisPort = this.getOrCreateUserId();
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort)
+      .subscribe((pokeData) => {
+        this.viewPokeData = pokeData.pokemonData;
+        this.totalPokeDocs = pokeData.totalDocs;
       });
-      return match;
-    });
+  }
+  getCookie(name: string): string | null {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) {
+      const lastPart = parts.pop();
+      return lastPart?.split(';').shift() || null;
+    }
+
+    return null;
+  }
+  toggleWhosthatpokemonDrawer() {
+    this.showNav = !this.showNav;
+    if (this.showNav == false) {
+      this.arrow = "\u00BB";
+      
+    }
+    else {
+      this.arrow = "\u00AB";
+    }
+
+  }
+  getOrCreateUserId() {
+    let userId = this.getCookie('userId');
+
+    if (!userId) {
+      userId = uuidv4();
+      document.cookie = `userId=${userId}; path=/; Secure; SameSite=Strict;`;
+      console.log('Generated and stored new userId:', userId);
+    } else {
+      console.log('Existing userId found:', userId);
+    }
+
+    return userId;
+  }
+  private filterPokeByNameAndType(value: string, selectedFilterList: string[]): Observable<string[]> {
+    const uuidForThisPort = this.getOrCreateUserId();
+    const filterValue = value.toLowerCase();
+    if (this.flag) {
+      this.flag = false;
+    }
+    return this.elasticService.findFamiliar(filterValue, this.pageSize, uuidForThisPort, false).pipe(
+      map((filteredRes: PokeMonElasticDetail | PokemonHistoryDetails[] | null) => {
+        if (filteredRes === null) {
+          // Handle null case
+          return [];
+        }
+
+        if ('pokemonData' in filteredRes && filteredRes.pokemonData) {
+          // Handle PokeMonElasticDetail type
+          return filteredRes.pokemonData.map((doc) => doc.name);
+        }
+
+        if (Array.isArray(filteredRes) && filteredRes.every(item => 'searchedField' in item && 'timestamp' in item)) {
+          // Handle array of PokemonHistoryDetails
+          return filteredRes.map((hist) => hist.searchedField);
+        }
+
+        // Default to an empty array if none of the conditions match
+        return [];
+      })
+    );
+
   }
 
-  filterSearched(ogList: PokemonInfo[], searchedKeyWord: string) {
-    if (!searchedKeyWord) {
-      return ogList;
-    }
-    return ogList.filter((pokemon) => {
-      return pokemon.name.includes(searchedKeyWord);
-    });
+
+  onPageChange(event: any): void {
+    this.currentPage = event.pageIndex;
+    this.pageSize = event.pageSize;
+    const uuidForThisPort = this.getOrCreateUserId();
+
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort)
+      .subscribe((pokeData) => {
+        this.viewPokeData = pokeData.pokemonData;
+        this.totalPokeDocs = pokeData.totalDocs;
+      });
+
+
   }
 
   onFilterChange(event: MatSelectChange): void {
     this.selectionList = event.value;
-    this.pokemonList = this.filterSearched(
-      this.originalList,
-      this.searchControl.value
-    );
-    this.pokemonList = this.filterPokemonList(
-      this.pokemonList,
-      this.selectionList
-    );
-    this.paginatedList = this.pokemonList.slice(
-      this.pageIndex * this.pageSize,
-      (this.pageIndex + 1) * this.pageSize
-    );
-    this.paginationCount = this.pokemonList.length;
-  }
-
-  onPageChange(event: PageEvent) {
-    this.pageIndex = event.pageIndex;
-    this.pageSize = event.pageSize;
-    const start = event.pageSize * event.pageIndex;
-    const end = start + event.pageSize;
-    this.paginatedList = this.pokemonList.slice(start, end);
-  }
-
-  private setupSearchDebouncer(): void {
-    this.searchDecouncer
-      .pipe(debounceTime(500), distinctUntilChanged())
-      .subscribe((term: string) => {
-        if ((term && term.length > 2) || term == '') {
-          this.pokemonList = this.filterSearched(this.originalList, term);
-          this.pokemonList = this.filterPokemonList(
-            this.pokemonList,
-            this.selectionList
-          );
-          this.paginatedList = this.pokemonList.slice(
-            this.pageIndex * this.pageSize,
-            (this.pageIndex + 1) * this.pageSize
-          );
-          this.paginationCount = this.pokemonList.length;
-          console.log(this.paginatedList)
-        }
+    this.currentPage = 0; // Reset to the first page when the filter changes
+    const uuidForThisPort = this.getOrCreateUserId();
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort)
+      .subscribe((pokeData) => {
+        this.viewPokeData = pokeData.pokemonData;
+        this.totalPokeDocs = pokeData.totalDocs;
       });
-  }
-
-  onSearchInputChange(value: string): void {
-    this.searchDecouncer.next(value);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.recommondations.filter((recommended) =>
-      recommended.toLowerCase().includes(filterValue)
-    );
   }
 
   toggleFilter() {
     this.filterElement.toggle();
+  }
+
+  onEnter(filterValue: string | null): void {
+    this.flag = !this.flag;
+    // if (!filterValue.trim()) {
+    //   return;
+    // }
+    const uuidForThisPort = this.getOrCreateUserId();
+    this.elasticService.getPaginatedPokeList(this.currentPage, this.pageSize, this.selectionList, (this.searchControl.value || '').toLowerCase(), uuidForThisPort).pipe(
+      map((filteredRes) => filteredRes)
+    ).subscribe((filteredRes) => {
+      this.viewPokeData = filteredRes.pokemonData;
+      this.totalPokeDocs = filteredRes.totalDocs;
+      console.log(this.viewPokeData);
+      console.log(this.totalPokeDocs);
+    });
   }
 }

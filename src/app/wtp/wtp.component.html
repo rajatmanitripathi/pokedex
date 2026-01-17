@@ -1,0 +1,36 @@
+<div class="pull">
+  <div class="pulldown_menu center">
+
+<div class="background-container" [ngClass]="{ 'transparent': shouldMakeTransparent }"
+  [style.--api-bg]="'url(http://localhost:9000' + randomPickedEECharacter.bgImage + ')'"
+>
+  <button class="startButton" (click)="startGame()" *ngIf="!gameStarted">StartGame</button>
+
+    <div class="img_placements" *ngIf="gameStarted">
+  <img src="assets/images/pngwing.com (3).png" class="overlay-image-1" />
+
+  <img
+    [src]="'http://localhost:9000' + randomPickedEECharacter.imageUrl"
+    class="overlay-image"
+    [ngClass]="{ 'darken': shouldDarken }"
+  />
+    <img src="assets/images/pokemonText.png" class="overlay-image-3" [ngClass]="{ 'disappear': !shouldDarken }" />
+   
+    </div>
+     <div class="font" [ngClass]="{ 'appear': !shouldDarken }"  [ngStyle]="{ 'color': '#FFDE00' }">{{randomPickedEECharacter.name}}</div>
+   <div class="guessable-option" *ngIf="allowOption" [ngClass]="{ 'disappear': shouldMakeTransparent }">
+    <div
+      class="option"
+      *ngFor="let option of randomPickedEECharacter.guessableCharaters"
+      (click)="onOptionClick(option)"
+    >
+      {{ option }}
+    </div>
+  </div>
+  <div class="bioTypewrited" [ngClass]="{ 'appear': shouldMakeTransparent }"  [ngStyle]="{ 'color': '#FFDE00' }">{{this.displayText}}</div>
+
+</div>
+</div>
+ <div class="pulldown">
+  </div>
+</div>

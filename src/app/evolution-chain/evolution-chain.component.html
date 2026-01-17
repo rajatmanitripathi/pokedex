@@ -1,0 +1,27 @@
+<!-- <div class="parent">
+  <div class="parent" *ngIf="evoChain && evoChain.chain">
+   <div>{{evoChain.chain.species.name}}</div> 
+    <div>
+      <div class="child" *ngFor="let child of evoChain.chain.evolves_to; let i = index">
+       <div><img class="arrowIcon" [src]='arrowIcon[i]' >{{ child.species.name }}</div> 
+       <app-evolution-chain *ngIf="i==4" [childChain]="evoChain.chain"></app-evolution-chain>
+        <app-evolution-chain *ngIf="child.evolves_to.length>0" [childChain]="child"></app-evolution-chain>
+    </div>
+    </div>
+
+  </div>
+   <div *ngIf="!evoChain && childChain">
+    <div>
+      <div class="child2" *ngFor="let child of childChain.evolves_to; let i = index">
+        
+          <div><img class="arrowIcon" [src]="arrowIcon[i]" >{{ child.species.name }}</div> 
+        
+        
+       
+       
+        <app-evolution-chain *ngIf="child.evolves_to.length>0" [childChain]="child"></app-evolution-chain>
+    </div>
+    </div>
+  
+   </div>
+</div> -->

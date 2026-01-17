@@ -16,21 +16,35 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EvolutionChainComponent } from '../evolution-chain/evolution-chain.component';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { AvatarModule } from 'primeng/avatar';
+
+import {MatDialogModule} from '@angular/material/dialog';
+import { CardOverviewComponent } from '../card-overview/card-overview.component';
+import { WtpComponent } from '../wtp/wtp.component';
 const routes: Routes = [
   {"path":"",
    "component":HomeComponent,
    "pathMatch":'full'
-  }
+  },
+  {"path":"evolution",
+    "component":EvolutionChainComponent,
+    "pathMatch":'full'
+   }
 ];
 
 @NgModule({
-  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent],
+  declarations: [HomeComponent, PokemonCardComponent, CustomProgressBarComponent,PokeballSpinnerComponent, PokemonDetailsComponent, EvolutionChainComponent,CardOverviewComponent,WtpComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     MatCardModule, MatSelectModule,MatTooltipModule,MatPaginatorModule,MatInputModule,MatAutocompleteModule,
-    ReactiveFormsModule,MatIconModule
-  ]
+    ReactiveFormsModule,MatIconModule,OrganizationChartModule,AvatarGroupModule,AvatarModule,MatDialogModule
+  ],
+  providers:[{provide: MAT_DIALOG_DATA, useValue: {}}]
 })
 export class HomeModule { }

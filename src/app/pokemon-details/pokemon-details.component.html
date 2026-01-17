@@ -1,25 +1,44 @@
-<div class="pokedexContainer">
-  <div class="topCircleContainer">
-    <div id="bigCircle">
-      <div id="blueCircle"></div>
-    </div>
-    <div id="redDot"></div>
-    <div id="yellowDot"></div>
-    <div id="greenDot"></div>
-  </div>
-  <div class="screenContainer">
-    <div id="screen">
-      <div class="screenBtnContainer">
-        <div id="redButton1" class="redButton"></div>
-        <div id="redButton2" class="redButton"></div>
-      </div>
-      <div id="display"><img src="" alt="squirtle" /></div>
-      <div class="screenBigRedBtnContainer">
-        <div id="redCircle" class="redButton"></div>
-      </div>
-    </div>
-  </div>
-  <div class="detailsContainer">
-    <div id="screen" class="detailScreen"></div>
+<!-- <input type="radio" name="sushi-lunch" id="happy-radio">
+<input type="radio" name="sushi-lunch" id="lovers-radio" checked>
+<div class="selector">
+ 
+  <label for="happy-radio" class="happy-card">
+    <app-pokemon-card *ngIf="data?.data" [pokemonData]="data.data"></app-pokemon-card>
+  </label>
+  <label for="lovers-radio" class="lovers-card">
+    <app-pokemon-card *ngIf="data?.data" [pokemonData]="data.data"></app-pokemon-card>
+  </label>
+</div> -->
+
+<div>
+  
+  <input type="radio" name="sushi-lunch" id="happy-radio">
+  <input type="radio" name="sushi-lunch" id="lovers-radio" checked>
+
+  <div class="selector">
+    <label for="happy-radio" class="happy-card">
+      <h1>Happy Sushi Lunch</h1>
+      <ul>
+        <li>California Roll</li>
+        <li>2 Pieces Salmon Nigiri</li>
+        <li>Sea Salt Edamame</li>
+        <li>Miso Soup</li>
+      </ul>
+      <p>$12</p>
+    </label>
+
+    <label for="lovers-radio" class="lovers-card">
+      <h1>Sushi Lover's Lunch</h1>
+      <ul>
+        <li>Spicy Tuna Roll</li>
+        <li>Shrimp Tempura Roll</li>
+        <li>4 Pieces Asssorted Nigiri</li>
+        <li>Wonton Soup</li>
+      </ul>
+      <p>$18</p>
+    </label>
+    
+    <label for="happy-radio" class="happy-pick">Switch to Happy Sushi Lunch!</label>
+    <label for="lovers-radio" class="lovers-pick">Switch to Sushi Lover's Lunch!</label>
   </div>
 </div>

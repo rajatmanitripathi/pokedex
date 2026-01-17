@@ -1,138 +1,184 @@
-.pokedexContainer {
-    background-color: var(--app-accent-color);
-    border-radius: 11px;
-    border: 1px solid black;
-    padding: 10px;
-    height: calc(100vh - 22px);
-}
-
-
-.topCircleContainer {
-    display: flex;
-    justify-content: start;
-    align-items: start;
-    margin-bottom: 10px;
-}
-
-
-#bigCircle {
-    height: 40px;
-    width: 40px;
-    border-radius: 20px;
-    border: black solid 1px;
-    background-color: white;
-    box-shadow: inset 2px 2px 3px 3px gray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-}
-
-#blueCircle {
-    height: 36px;
-    width: 36px;
-    border-radius: 20px;
-    background-color: blue;
-}
-
-#redDot {
-    border-radius: 6px;
-    height: 10px;
-    width: 10px;
-    border: black solid 1px;
-    background-color: red;
-    margin: 10px 5px;
-}
-
-#yellowDot {
-    border-radius: 6px;
-    height: 10px;
-    width: 10px;
-    border: black solid 1px;
-    background-color: yellow;
-    margin: 10px 5px;
-}
-
-#greenDot {
-    border-radius: 6px;
-    height: 10px;
-    width: 10px;
-    border: black solid 1px;
-    background-color: lightgreen;
-    margin: 10px 5px;
-}
-
-
-#screen {
-    border-radius: 10px 10px 10px 30px;
-    border: black solid 1px;
-    height: 150px;
-    width: 90%;
-    background-color: lightgray;
-    box-shadow: inset 2px 1px 2px 2px gray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.screenContainer {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-}
-
-.screenBtnContainer {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    padding-top: 5px;
-}
-
-.screenBigRedBtnContainer {
-    width: 100%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding-left: 11px;
-    position: relative;
-    top: -8px;
-}
-
-
-#display {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 75%;
-    width: 75%;
-    border-radius: 0 0 0 20px;
-    background-color: black;
-    color: white;
-}
-
-.redButton {
-    border: black solid 1px;
-    height: 5px;
-    width: 5px;
-    border-radius: 10px;
-    background-color: red;
-}
-
-.detailsContainer {
-    height: auto;
-    width: 100%;
-    min-height: 300px;
-    height: auto;
-    width: 100%;
-    min-height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    margin-top: 20px;
-}
-
-.detailScreen {
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  html, body {
     height: 100%;
-}
+  }
+  
+  body {
+    margin: 0;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    height: 100%;
+    color: #f4f7f7;
+    background-color: #586875;
+    font: 1rem/1 'Cabin', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  /* hide radio buttons, but still expose them to screen readers */
+  input {
+    position: absolute;
+    width: 1px;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  
+  .selector {
+    display: grid;
+    grid-template-areas:
+      'happy lovers'
+      'pick  pick';
+  }
+  
+  /* the cards and toggle buttons are actually fat labels that can be clicked to set radio buttons */
+  label {
+    display: block;
+    cursor: pointer;
+  }
+  
+  .happy-card, .lovers-card {
+    position: relative; /* for iOS */
+    width: 250px;
+    padding: 20px;
+    color: #586875;
+    background-color: #f4f7f7;
+    box-shadow: 0 10px 20px #0006;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out; /* important to use a symmetrical timing function (linear also works) */
+    animation-fill-mode: forwards;
+  }
+  
+  .happy-card {
+    grid-area: happy;
+    margin-right: -10px; /* nudge closer to lover's card */
+    
+    /* these values are used to animate via translateX */
+    --swing: -25px;
+    --overlap: 25px;
+  }
+  
+  .lovers-card {
+    grid-area: lovers;
+    margin-left: -10px; /* nudge closer to happy card */
+  
+    /* these values are used to animate via translateX */
+    --swing: 25px;
+    --overlap: -25px;
+  }
+  
+  /* when a radio button is set, swing the corresponding card fowards */
+  #happy-radio:checked ~ .selector .happy-card,
+  #lovers-radio:checked ~ .selector .lovers-card {
+    animation-name: swing-forwards;
+  }
+  
+  @keyframes swing-forwards {
+    0% {
+      z-index: 1; /* start behind other card */
+      transform: scale(0.9);
+    }
+    50% {
+      transform: translateX(var(--swing));
+    }
+    100% {
+      z-index: 2; /* end in front of other card */
+      transform: translateX(var(--overlap)) scale(1.1);
+    }
+  }
+  
+  /* when a radio button is set, swing the opposite card backwards */
+  #happy-radio:checked ~ .selector .lovers-card,
+  #lovers-radio:checked ~ .selector .happy-card {
+    animation-name: swing-backwards;
+  }
+  
+  @keyframes swing-backwards {
+    0% {
+      z-index: 2;  /* start in front of other card */
+      transform: translateX(var(--overlap)) scale(1.1);
+    }
+    50% {
+      transform: translateX(var(--swing));
+    }
+    100% {
+      z-index: 1; /* end behind other card */
+      transform: scale(0.9);
+    }
+  }
+  
+  h1 {
+    margin: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #bdd6d2;
+    font-size: 1.5rem;
+  }
+  
+  ul {
+    margin: 15px 0;
+    padding-left: 30px;
+    line-height: 1.5rem;
+    list-style-type: square;
+  }
+  
+  p {
+    margin: 0 -20px -20px;
+    padding: 15px;
+    background-color: #bdd6d2;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .happy-pick, .lovers-pick {
+    grid-area: pick;
+    margin: 50px auto 0;
+    padding: 15px;
+    border: 1px solid #f4f7f7;
+    border-radius: 9999px;
+    background-color: #b46d73;
+    font-size: 1.25rem;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  .happy-pick::before, .lovers-pick::after {
+    display: inline-block;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: bold;
+  }
+  
+  .happy-pick::before {
+    margin-right: 10px;
+    content: '\f0a8'; /* fa-arrow-circle-left */
+  }
+  
+  .lovers-pick::after {
+    margin-left: 10px;
+    content: '\f0a9'; /* fa-arrow-circle-right */
+  }
+  
+  /* hide happy toggle button if happy is currently selected */
+  #happy-radio:checked ~ .selector .happy-pick {
+    display: none;
+  }
+  
+  /* hide lover's toggle button if lover's is currently selected */
+  #lovers-radio:checked ~ .selector .lovers-pick {
+    display: none;
+  }
+  
+  /* increase overlap and swing distance on smaller screens */
+  @media (max-width: 560px) {
+    .happy-card {
+      margin-right: -85px;
+      --swing: -100px;
+    }
+  
+    .lovers-card {
+      margin-left: -85px;
+      --swing: 100px;
+    }
+  }
